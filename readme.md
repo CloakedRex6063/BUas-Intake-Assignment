@@ -8,7 +8,9 @@ to unlock new characters. It's an exciting and challenging
 game that is perfect for fans of action-packed platformers.
 
 Credits:
+
 Level Music: Climbing Through Air 2 - Tomas Skyldeberg, Epidemic Sound
+
 Menu Sounds: Fantasy UI Sound Effects - Atelier Magicae
 
 Library used: SFML 2.5.1
