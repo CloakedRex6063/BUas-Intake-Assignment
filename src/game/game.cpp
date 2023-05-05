@@ -1,6 +1,8 @@
 ﻿#include "game.h"
 #include <iostream>
-#include "../engine/audioManager.h"
+#include "../engine/audio manager/audioManager.h"
+#include "../engine/main/main.h"
+#include "../engine/save file/saveFile.h"
 #include "scenes/ui/main menu/mainMenuScene.h"
 #include "scenes/ui/game over/gameOverScene.h"
 #include "scenes/ui/options menu/optionsMenuScene.h"
@@ -10,33 +12,55 @@
 #include "scenes/levels/levelScene.h"
 
 int Game::score = 0;
+bool Game::bShowFPS = false;
 sf::Color Game::colors[4] = {sf::Color::Yellow, sf::Color::Cyan, sf::Color::Green, sf::Color::Magenta}; 
+
+void Game::LoadSavedVars()
+{
+    float soundVolume;
+    float musicVolume;
+    bool bVsync;
+    bool bFps;
+    SaveFile::LoadData(soundVolume,musicVolume,bVsync,bFps);
+    
+    AudioManager::SetSoundVolume(soundVolume);
+    optionsMenu->GetSliderList()[0].SetSliderValue(AudioManager::GetSoundVolume());
+    
+    AudioManager::SetMusicVolume(musicVolume);
+    optionsMenu->GetSliderList()[1].SetSliderValue(AudioManager::GetMusicVolume());
+
+    Main::SetVsync(bVsync);
+    GetWindow().setVerticalSyncEnabled(bVsync);
+    optionsMenu->GetButtonList()[1].SetTexture(bVsync ? tickTex : unTickTex);
+
+    SetShowFPS(bFps);
+    optionsMenu->GetButtonList()[2].SetTexture(bFps ? tickTex : unTickTex);
+}
 
 #pragma region Inherited functions
 
 void Game::Init()
 {
-    auto* tex = new sf::Texture();
-    tex->loadFromFile("Assets/Textures/Player2.png");
-    Player::tex = tex;
+    InitText();
+    CreateTextures();
+    Player::tex = playerTex;
     CreateBaseScenes();
     AudioManager::Init();
+    LoadSavedVars();
     ChangeState(MainMenu_State);
-    AudioManager::SetSoundVolume(100.f);
-    AudioManager::SetMusicVolume(100.f);
-    optionsMenu->GetSliderList()[0].SetSliderValue(AudioManager::GetSoundVolume()/100.f);
-    optionsMenu->GetSliderList()[1].SetSliderValue(AudioManager::GetMusicVolume()/100.f);
 }
 
 void Game::Tick(float deltaTime)
 {
+    fpsText->SetText(bShowFPS ? std::to_string(Main::GetFPS()) : "");
+    fpsText->Tick(deltaTime);
     switch (currentGameState)
     {
     case MainMenu_State:
         mainMenu->Tick(deltaTime);
         break;
     case Gameplay_State:
-        level1->Tick(deltaTime);
+        level->Tick(deltaTime);
         break;
     case Pause_State:
         pauseMenu->Tick(deltaTime);
@@ -58,13 +82,14 @@ void Game::Tick(float deltaTime)
 
 void Game::PhysicsTick(float fixedDeltaTime)
 {
+    fpsText->PhysicsTick(fixedDeltaTime);
     switch (currentGameState)
     {
     case MainMenu_State:
         mainMenu->PhysicsTick(fixedDeltaTime);
         break;
     case Gameplay_State:
-        level1->PhysicsTick(fixedDeltaTime);
+        level->PhysicsTick(fixedDeltaTime);
         break;
     case Pause_State:
         pauseMenu->PhysicsTick(fixedDeltaTime);
@@ -86,13 +111,14 @@ void Game::PhysicsTick(float fixedDeltaTime)
 
 void Game::Render()
 {
+    fpsText->Render();
     switch (currentGameState)
     {
     case MainMenu_State:
         mainMenu->Render();
         break;
     case Gameplay_State:
-        level1->Render();
+        level->Render();
         break;
     case Pause_State:
         pauseMenu->Render();
@@ -152,32 +178,83 @@ void Game::CreateLevel()
     const auto windowSize = sf::Vector2f(GetWindow().getSize());
     GetParallaxView().reset(sf::FloatRect(0,0, windowSize.x,windowSize.y));
     GetGameView().reset(sf::FloatRect(0,0, windowSize.x,windowSize.y));
-    delete level1;
-    level1 = new LevelScene();
-    level1->SetTarget(GetWindow(),GetGameView(),GetFixedView(),GetParallaxView());
-    level1->SetGame(*this);
-    level1->Init();
+    
+    delete level;
+    level = new LevelScene();
+    level->SetTarget(GetWindow(),GetGameView(),GetFixedView(),GetParallaxView());
+    level->SetGame(*this);
+    level->Init();
+}
+
+void Game::CreateTextures()
+{
+    playerTex = new sf::Texture();
+    playerTex->loadFromFile("Assets/Textures/Player2.png");
+    playTex = new sf::Texture();
+    playTex->loadFromFile("Assets/Textures/PlayButton.png");
+    pauseTex = new sf::Texture();
+    pauseTex->loadFromFile("Assets/Textures/PauseButton.png");
+    menuTex = new sf::Texture();
+    menuTex->loadFromFile("Assets/Textures/MainMenu.png");
+    restartTex = new sf::Texture();
+    restartTex->loadFromFile("Assets/Textures/Restart.png");
+    backTex = new sf::Texture();
+    backTex->loadFromFile("Assets/Textures/Back.png");
+    shopTex = new sf::Texture();
+    shopTex->loadFromFile("Assets/Textures/Shop.png");
+    optionsTex = new sf::Texture();
+    optionsTex->loadFromFile("Assets/Textures/MainMenu.png");
+    tickTex = new sf::Texture();
+    tickTex->loadFromFile("Assets/Textures/Tick.png");
+    unTickTex = new sf::Texture();
+    unTickTex->loadFromFile("Assets/Textures/UnTick.png");
 }
 
 #pragma region Helper
 
-int Game::GetScore()
-{
-    return score;
-}
-
-void Game::IncreaseScore(int bonus)
-{
-    score+= bonus;
-}
-
 void Game::ChangeState(GameStates newState)
 {
-    currentGameState = newState;
-    if (newState == Gameplay_State)
+    switch (newState)
     {
-        AudioManager::PlayMusic(Level1Music_Type,1.f);
+    case MainMenu_State:
+        if(currentGameState != Options_State && currentGameState != Shop_State)
+        {
+            AudioManager::StopMusic();
+            AudioManager::PlayMusic(MenuMusic_Type,0);
+        }
+        break;
+    case Gameplay_State:
+        if (currentGameState == Pause_State)
+        {
+            AudioManager::ResumeMusic();
+        }
+        else
+        {
+            AudioManager::PlayMusic(LevelMusic_Type,1.f);
+        }
+        break;
+    case Pause_State:
+        AudioManager::PauseMusic();
+        break;
+    case GameOver_State:
+        AudioManager::StopMusic();
+        break;
+    case GameVictory_State:
+        AudioManager::StopMusic();
+        break;
+    default: break;
     }
+    currentGameState = newState;
+}
+
+void Game::InitText()
+{
+    font.loadFromFile("Assets/Fonts/Cherry.ttf");
+    SetFont(font);
+    const auto fpsPos = sf::Vector2f(25.f,0.f);
+    fpsText = new Text(fpsPos,GetFont(),50," ");
+    fpsText->Init();
+    fpsText->SetTarget(GetWindow(),GetGameView(),GetFixedView(),GetParallaxView());
 }
 
 #pragma endregion 

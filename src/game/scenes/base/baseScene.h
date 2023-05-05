@@ -28,19 +28,8 @@ protected:
     virtual void CreateButtons() = 0;
     virtual void BindButtons() = 0;
     
-    sf::Texture* playTex = nullptr;
-    sf::Texture* pauseTex = nullptr;
-    sf::Texture* menuTex = nullptr;
-    sf::Texture* restartTex = nullptr;
-    sf::Texture* backTex = nullptr;
-    sf::Texture* shopTex = nullptr;
-    sf::Texture* optionsTex = nullptr;
-    void CreateTextures();
-    
     std::vector<Text> textList;
-    sf::Font font;
-    sf::Font& getFont() {return font;}
-    void SetFont(const sf::Font& newFont) {font = newFont;}
+
     virtual void CreateText() = 0;
 
     std::vector<SliderBar> sliderList;

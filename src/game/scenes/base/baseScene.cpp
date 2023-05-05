@@ -1,12 +1,7 @@
 ﻿#include "baseScene.h"
 
-#include <iostream>
-
 void BaseScene::Init()
 {
-    font.loadFromFile("Assets/Fonts/Cherry.ttf");
-    SetFont(font);
-    CreateTextures();
     CreateButtons();
     BindButtons();
     CreateText();
@@ -60,23 +55,5 @@ void BaseScene::Render()
     {
         slider.Render();
     }
-}
-
-void BaseScene::CreateTextures()
-{
-    playTex = new sf::Texture();
-    playTex->loadFromFile("Assets/Textures/PlayButton.png");
-    pauseTex = new sf::Texture();
-    pauseTex->loadFromFile("Assets/Textures/PauseButton.png");
-    menuTex = new sf::Texture();
-    menuTex->loadFromFile("Assets/Textures/MainMenu.png");
-    restartTex = new sf::Texture();
-    restartTex->loadFromFile("Assets/Textures/Restart.png");
-    backTex = new sf::Texture();
-    backTex->loadFromFile("Assets/Textures/Back.png");
-    shopTex = new sf::Texture();
-    shopTex->loadFromFile("Assets/Textures/Shop.png");
-    optionsTex = new sf::Texture();
-    optionsTex->loadFromFile("Assets/Textures/MainMenu.png");
 }
 

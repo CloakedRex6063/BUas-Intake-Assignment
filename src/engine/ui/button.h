@@ -1,8 +1,6 @@
 ﻿#pragma once
 #include <functional>
-
 #include "../../engine/object.h"
-#include "..\..\engine\enums.h"
 
 class Button : public Object
 {
@@ -11,6 +9,7 @@ public:
     void Init() override;
     void Tick(float deltaTime) override;
     void Render() override;
+    void SetTexture(sf::Texture* tex) {this->tex = tex; sprite.setTexture(this->tex);}
     
     sf::Vector2f size;
     sf::Vector2f pos;

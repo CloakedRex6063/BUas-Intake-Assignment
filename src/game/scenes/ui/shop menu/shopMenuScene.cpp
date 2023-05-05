@@ -1,5 +1,6 @@
 ﻿#include "shopMenuScene.h"
-
+#include "../../../../engine/audio manager/audioManager.h"
+#include "../../../../engine/main/main.h"
 #include "../../../player/player.h"
 
 void ShopMenuScene::Init()
@@ -20,7 +21,7 @@ void ShopMenuScene::Render()
 void ShopMenuScene::CreateButtons()
 {
     const auto backPos = sf::Vector2f(100.f,GetWindow().getSize().y - 100.f);
-    const auto backBut = Button(backPos,sf::Vector2f(100.f,100.f),5.f,backTex);
+    const auto backBut = Button(backPos,sf::Vector2f(100.f,100.f),5.f,GetGame().backTex);
     buttonList.emplace_back(backBut);
     for (auto &but : buttonList)
     {
@@ -41,7 +42,7 @@ void ShopMenuScene::BindButtons()
 void ShopMenuScene::CreateText()
 {
     const auto shopPos = sf::Vector2f(static_cast<float>(GetWindow().getSize().x) /2.f,50.f);
-    const auto shopText = Text(shopPos,getFont(),50,"Shop");
+    const auto shopText = Text(shopPos,GetGame().GetFont(),50,"Shop");
     textList.emplace_back(shopText);
     for (auto &text : textList)
     {

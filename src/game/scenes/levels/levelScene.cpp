@@ -1,13 +1,11 @@
 ﻿#include "levelScene.h"
-
-#include "../../../engine/main.h"
-#include "../../../engine/structs.h"
+#include "../../../engine/structs/structs.h"
 #include "../../obstacles/spike.h"
 
 void LevelScene::CreateObstacles()
 {
     const auto windowSize = static_cast<sf::Vector2f>(GetWindow().getSize());
-    std::vector<ObstacleData> obstacleData =
+    const std::vector<ObstacleData> obstacleData =
         {
             {sf::Vector2f(1500.f,windowSize.y - 155.f),40.f},
             {sf::Vector2f(2100.f,windowSize.y - 140.f),30.f},

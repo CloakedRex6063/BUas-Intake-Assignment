@@ -3,11 +3,11 @@
 
 class OptionsMenuScene : public BaseScene
 {
-    
-private:
     std::function<void()> back;
     std::function<void(float value)> soundVolume;
     std::function<void(float value)> musicVolume;
+    std::function<void()> vsync;
+    std::function<void()> fps;
     
     void CreateButtons() override;
     void BindButtons() override;

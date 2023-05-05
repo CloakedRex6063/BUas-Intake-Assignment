@@ -3,11 +3,11 @@
 void MainMenuScene::CreateButtons()
 {
     const auto playPos = sf::Vector2f(GetWindow().getSize().x/2.f,GetWindow().getSize().y/2.f);
-    const auto playBut = Button(playPos,sf::Vector2f(200.f,200.f),5.f,playTex);
+    const auto playBut = Button(playPos,sf::Vector2f(200.f,200.f),5.f,GetGame().playTex);
     const auto shopPos = sf::Vector2f(GetWindow().getSize().x - 100.f,GetWindow().getSize().y - 100.f);
-    const auto shopBut = Button(shopPos,sf::Vector2f(100.f,100.f),5.f,shopTex);
+    const auto shopBut = Button(shopPos,sf::Vector2f(100.f,100.f),5.f,GetGame().shopTex);
     const auto optionsPos = sf::Vector2f(GetWindow().getSize().x - 100.f,100.f);
-    const auto optionsBut = Button(optionsPos,sf::Vector2f(100.f,100.f),5.f,optionsTex);
+    const auto optionsBut = Button(optionsPos,sf::Vector2f(100.f,100.f),5.f,GetGame().optionsTex);
     buttonList.emplace_back(playBut);
     buttonList.emplace_back(shopBut);
     buttonList.emplace_back(optionsBut);
@@ -44,7 +44,7 @@ void MainMenuScene::BindButtons()
 void MainMenuScene::CreateText()
 {
     const auto mainPos = sf::Vector2f(static_cast<float>(GetWindow().getSize().x) /2.f,50.f);
-    const auto mainText = Text(mainPos,getFont(),50,"Dash");
+    const auto mainText = Text(mainPos,GetGame().GetFont(),50,"Dash");
     textList.emplace_back(mainText);
     for (auto &text : textList)
     {

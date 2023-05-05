@@ -4,7 +4,6 @@
 class PauseMenuScene : public BaseScene
 {
     std::function<void()> resumeGame;
-    std::function<void()> restartGame;
     std::function<void()> mainMenu;
     
     void CreateButtons() override;

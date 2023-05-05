@@ -1,5 +1,5 @@
 ﻿#include "baseLevelScene.h"
-#include "../../../engine/main.h"
+#include "../../../engine/main/main.h"
 
 int BaseLevelScene::jumps = 0;
 
@@ -87,7 +87,7 @@ void BaseLevelScene::CreateButtons()
 {
     const auto pausePos = sf::Vector2f(static_cast<float>(GetWindow().getSize().x) - 50.f,50.f);
     const auto pauseSize = sf::Vector2f(50.f,50.f);
-    const auto pauseBut = Button(pausePos,pauseSize,5.f,pauseTex);
+    const auto pauseBut = Button(pausePos,pauseSize,5.f,GetGame().pauseTex);
     buttonList.emplace_back(pauseBut);
     for (auto &but : buttonList)
     {
@@ -109,7 +109,7 @@ void BaseLevelScene::BindButtons()
 void BaseLevelScene::CreateText()
 {
     const auto scorePos = sf::Vector2f(static_cast<float>(GetWindow().getSize().x) /2.f + 300.f,50.f);
-    const auto scoreText = Text(scorePos,getFont(),50,std::to_string(0.f));
+    const auto scoreText = Text(scorePos,GetGame().GetFont(),50,std::to_string(0.f));
     textList.emplace_back(scoreText);
     for (auto &text : textList)
     {
