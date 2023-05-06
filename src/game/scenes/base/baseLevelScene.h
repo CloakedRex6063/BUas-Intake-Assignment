@@ -49,7 +49,8 @@ protected:
     void ViewUpdate();
     void CollisionCheck();
     void AddSpikeLine(const sf::Vector2f& startPos, int numSpikes, sf::Vector2f spikeGaps, float spikeRadius);
-
+    void AddFloorLine(const sf::Vector2f& startPos, int numFloors, sf::Vector2f floorGaps, sf::Vector2f startSize,
+        sf::Vector2f sizeIncrease, sf::Vector2f texMultiplier, sf::Texture* tex);
     float GetProgress() const;
     void ShowProgress();
 

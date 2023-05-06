@@ -48,6 +48,7 @@ private:
 
 public:
     sf::Texture* playerTex = nullptr;
+    
     sf::Texture* playTex = nullptr;
     sf::Texture* pauseTex = nullptr;
     sf::Texture* menuTex = nullptr;
@@ -57,6 +58,9 @@ public:
     sf::Texture* optionsTex = nullptr;
     sf::Texture* tickTex = nullptr;
     sf::Texture* unTickTex = nullptr;
+    
+    sf::Texture* floor1Tex = nullptr;
+    sf::Texture* floor2Tex = nullptr;
 
 #pragma endregion 
 

@@ -12,6 +12,7 @@ void Spike::Init()
 {
     sprite.setFillColor(sf::Color::Blue);
     sprite.setPosition(pos);
+    sprite.setOrigin(radius/2.f,radius/2.f);
     sprite.setRadius(radius);
     sprite.setPointCount(3);
 }

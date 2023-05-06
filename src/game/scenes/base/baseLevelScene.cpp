@@ -198,6 +198,19 @@ void BaseLevelScene::AddSpikeLine(const sf::Vector2f& startPos, int numSpikes, s
     }
 }
 
+void BaseLevelScene::AddFloorLine(const sf::Vector2f& startPos, int numFloors, sf::Vector2f floorGaps,
+    sf::Vector2f startSize, sf::Vector2f sizeIncrease, sf::Vector2f texMultiplier, sf::Texture* tex)
+{
+    for (int i = 0; i < numFloors; i++)
+    {
+        const auto floorPos = startPos + sf::Vector2f(i * floorGaps.x, i * floorGaps.y);
+        const auto floorSize = startSize + sf::Vector2f(i * sizeIncrease.x, i * sizeIncrease.y);
+        const auto floorTexMult = sf::Vector2f(texMultiplier.x * floorSize.x, texMultiplier.y * floorSize.y);
+        auto floor = Floor(floorPos, floorSize, floorTexMult, tex);
+        floorList.emplace_back(floor);
+    }
+}
+
 float BaseLevelScene::GetProgress() const
 {
     return player->GetSprite().getPosition().x/winPortal->GetSprite().getPosition().x;

@@ -551,9 +551,6 @@
     <ClInclude Include="src\game\scenes\ui\shop menu\shopMenuScene.h" />
     <ClInclude Include="src\game\winPortal\winPortal.h" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="src\game\jumper\" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

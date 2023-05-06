@@ -190,6 +190,7 @@ void Game::CreateTextures()
 {
     playerTex = new sf::Texture();
     playerTex->loadFromFile("Assets/Textures/Player2.png");
+    
     playTex = new sf::Texture();
     playTex->loadFromFile("Assets/Textures/PlayButton.png");
     pauseTex = new sf::Texture();
@@ -208,6 +209,11 @@ void Game::CreateTextures()
     tickTex->loadFromFile("Assets/Textures/Tick.png");
     unTickTex = new sf::Texture();
     unTickTex->loadFromFile("Assets/Textures/UnTick.png");
+
+    floor1Tex = new sf::Texture();
+    floor1Tex->loadFromFile("Assets/Textures/Floor1.png");
+    floor2Tex = new sf::Texture();
+    floor2Tex->loadFromFile("Assets/Textures/Floor2.png");
 }
 
 #pragma region Helper
@@ -242,7 +248,8 @@ void Game::ChangeState(GameStates newState)
     case GameVictory_State:
         AudioManager::StopMusic();
         break;
-    default: break;
+    case Shop_State: break;
+    case Options_State: break;
     }
     currentGameState = newState;
 }
