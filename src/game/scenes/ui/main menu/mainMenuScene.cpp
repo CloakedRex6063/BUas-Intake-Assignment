@@ -22,6 +22,7 @@ void MainMenuScene::BindButtons()
 {
     playGame = [&]
     {
+        GetGame().SetAttempts(1);
         GetGame().CreateLevel();
         GetGame().ChangeState(Gameplay_State);
     };

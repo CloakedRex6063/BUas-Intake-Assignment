@@ -10,13 +10,14 @@
 class BaseLevelScene : public BaseScene
 {
 public:
-    ~BaseLevelScene();
+    ~BaseLevelScene() override;
     void Init() override;
     void Tick(float deltaTime) override;
     void PhysicsTick(float fixedDeltaTime) override;
     void Render() override;
 
     Player& GetPlayer() const {return *player;}
+
 
 protected:
     bool bStart = false;
@@ -45,20 +46,33 @@ protected:
     void BindButtons() override;
     
     void CreateText() override;
-    
+
+private:
     void ViewUpdate();
+    
     void CollisionCheck();
+    void PickupCheck();
+    void FloorCheck();
+    void BoundsCheck();
+    void ObstacleCheck();
+    void WinCheck() const;
+
+private:
+    bool bRestarted = false;
+
+protected:
     void AddSpikeLine(const sf::Vector2f& startPos, int numSpikes, sf::Vector2f spikeGaps, float spikeRadius);
     void AddFloorLine(const sf::Vector2f& startPos, int numFloors, sf::Vector2f floorGaps, sf::Vector2f startSize,
         sf::Vector2f sizeIncrease, sf::Vector2f texMultiplier, sf::Texture* tex);
+    
     float GetProgress() const;
     void ShowProgress();
 
 private:
     static int jumps;
+    int score = 0;
     
 public:
     static int GetJumps();
     static void SetJumps(int newJumps);
-    static sf::Vector2f Multiply(sf::Vector2f vector1,sf::Vector2f vector2);
 };

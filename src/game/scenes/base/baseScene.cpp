@@ -47,13 +47,21 @@ void BaseScene::Render()
     {
         but.Render();
     }
-    for (auto &text : textList)
-    {
-        text.Render();
-    }
     for (auto &slider : sliderList)
     {
         slider.Render();
+    }
+    for (auto &text : textList)
+    {
+        if (text.bFixed)
+        {
+            text.Render();
+        }
+        else
+        {
+            GetWindow().setView(GetGameView());
+            text.Render();
+        }
     }
 }
 

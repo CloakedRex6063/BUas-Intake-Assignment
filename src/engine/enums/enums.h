@@ -7,7 +7,7 @@ enum GameStates
     Options_State,
     Gameplay_State,
     Pause_State,
-    GameOver_State,
+    Restart_State,
     GameVictory_State
 };
 

@@ -69,31 +69,26 @@ void LevelScene::CreateFloor()
     const auto Line1Increase = sf::Vector2f(0.f,100.f);
     const auto Line1TexMult = sf::Vector2f(1.f,1.f);
     AddFloorLine(Line1Pos,3,Line1Gaps,Line1Size,Line1Increase,Line1TexMult,GetGame().floor2Tex);
-
+    
     floorData.insert(floorData.end(),
+{
         {sf::Vector2f(4700.f,windowSize.y - 50.f),sf::Vector2f(1000.f,300.f),
-            sf::Vector2f(0.5f,0.5f),GetGame().floor1Tex});
-
-    floorData.insert(floorData.end(),
+                sf::Vector2f(0.5f,0.5f),GetGame().floor1Tex},
         {sf::Vector2f(5700.f,windowSize.y - 50.f),sf::Vector2f(200.f,100.f),
-            sf::Vector2f(0.5f,0.5f),GetGame().floor1Tex});
-
-    const auto Line2Pos = sf::Vector2f(5900.f,windowSize.y - 50.f);
-    const auto Line2Gaps = sf::Vector2f(1200.f,-100.f);
-    const auto Line2Size = sf::Vector2f(1000.f,300.f);
-    const auto Line2Increase = sf::Vector2f(0.f,0.f);
-    const auto Line2TexMult = sf::Vector2f(0.5f,0.5f);
-    AddFloorLine(Line2Pos,2,Line2Gaps,Line2Size,Line2Increase,Line2TexMult,GetGame().floor1Tex);
-
-    floorData.insert(floorData.end(),
+                sf::Vector2f(0.5f,0.5f),GetGame().floor1Tex},
+        {sf::Vector2f(5900.f,windowSize.y - 50.f),sf::Vector2f(1000.f,300.f),
+            sf::Vector2f(0.5f,0.5f),GetGame().floor1Tex},
         {sf::Vector2f(6900.f,windowSize.y - 50.f),sf::Vector2f(200.f,100.f),
-            sf::Vector2f(0.5f,0.5f),GetGame().floor1Tex});
+            sf::Vector2f(0.5f,0.5f),GetGame().floor1Tex},
+        {sf::Vector2f(7100.f,windowSize.y - 150.f),sf::Vector2f(1000.f,300.f),
+            sf::Vector2f(0.5f,0.5f),GetGame().floor1Tex},
+    });
 
     const auto Line3Pos = sf::Vector2f(8350.f,windowSize.y - 325.f);
     const auto Line3Gaps = sf::Vector2f(275.f,-50.f);
     const auto Line3Size = sf::Vector2f(50.f,25.f);
     const auto Line3Increase = sf::Vector2f(0.f,0.f);
-    const auto Line3TexMult = sf::Vector2f(1.f,1.f);
+    const auto Line3TexMult = sf::Vector2f(1.f,2.f);
     AddFloorLine(Line3Pos,4,Line3Gaps,Line3Size,Line3Increase,Line3TexMult,GetGame().floor1Tex);
 
     floorData.insert(floorData.end(),

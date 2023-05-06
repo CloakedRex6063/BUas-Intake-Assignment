@@ -25,6 +25,7 @@ void GameVictoryScene::BindButtons()
     
     restart = [&]
     {
+        GetGame().SetAttempts(1);
         GetGame().CreateLevel();
         GetGame().ChangeState(Gameplay_State);
     };

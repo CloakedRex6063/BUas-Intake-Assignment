@@ -4,18 +4,16 @@
 #include "../engine/main/main.h"
 #include "../engine/save file/saveFile.h"
 #include "scenes/ui/main menu/mainMenuScene.h"
-#include "scenes/ui/game over/gameOverScene.h"
 #include "scenes/ui/options menu/optionsMenuScene.h"
 #include "scenes/ui/game victory/gameVictoryScene.h"
 #include "scenes/ui/pause menu/pauseMenuScene.h"
 #include "scenes/ui/shop menu/shopMenuScene.h"
 #include "scenes/levels/levelScene.h"
 
-int Game::score = 0;
 bool Game::bShowFPS = false;
 sf::Color Game::colors[4] = {sf::Color::Yellow, sf::Color::Cyan, sf::Color::Green, sf::Color::Magenta}; 
 
-void Game::LoadSavedVars()
+void Game::LoadSavedVars() const
 {
     float soundVolume;
     float musicVolume;
@@ -65,9 +63,6 @@ void Game::Tick(float deltaTime)
     case Pause_State:
         pauseMenu->Tick(deltaTime);
         break;
-    case GameOver_State:
-        gameOver->Tick(deltaTime);
-        break;
     case GameVictory_State:
         gameVictory->Tick(deltaTime);
         break;
@@ -77,6 +72,7 @@ void Game::Tick(float deltaTime)
     case Options_State:
         optionsMenu->Tick(deltaTime);
         break;
+    case Restart_State: break;
     }
 }
 
@@ -94,9 +90,6 @@ void Game::PhysicsTick(float fixedDeltaTime)
     case Pause_State:
         pauseMenu->PhysicsTick(fixedDeltaTime);
         break;
-    case GameOver_State:
-        gameOver->PhysicsTick(fixedDeltaTime);
-        break;
     case GameVictory_State:
         gameVictory->PhysicsTick(fixedDeltaTime);
         break;
@@ -106,6 +99,7 @@ void Game::PhysicsTick(float fixedDeltaTime)
     case Options_State:
         optionsMenu->PhysicsTick(fixedDeltaTime);
         break;
+    case Restart_State: break;
     }
 }
 
@@ -123,9 +117,6 @@ void Game::Render()
     case Pause_State:
         pauseMenu->Render();
         break;
-    case GameOver_State:
-        gameOver->Render();
-        break;
     case GameVictory_State:
         gameVictory->Render();
         break;
@@ -134,7 +125,8 @@ void Game::Render()
         break;
     case Options_State:
         optionsMenu->Render();
-        break; 
+        break;
+    case Restart_State: break;
     }
 }
 
@@ -146,11 +138,6 @@ void Game::CreateBaseScenes()
     mainMenu->SetTarget(GetWindow(),GetGameView(),GetFixedView(),GetParallaxView());
     mainMenu->SetGame(*this);
     mainMenu->Init();
-    
-    gameOver = new GameOverScene();
-    gameOver->SetTarget(GetWindow(),GetGameView(),GetFixedView(),GetParallaxView());
-    gameOver->SetGame(*this);
-    gameOver->Init();
     
     gameVictory = new GameVictoryScene();
     gameVictory->SetTarget(GetWindow(),GetGameView(),GetFixedView(),GetParallaxView());
@@ -242,14 +229,12 @@ void Game::ChangeState(GameStates newState)
     case Pause_State:
         AudioManager::PauseMusic();
         break;
-    case GameOver_State:
-        AudioManager::StopMusic();
-        break;
     case GameVictory_State:
         AudioManager::StopMusic();
         break;
     case Shop_State: break;
     case Options_State: break;
+    case Restart_State: break;
     }
     currentGameState = newState;
 }
@@ -262,6 +247,13 @@ void Game::InitText()
     fpsText = new Text(fpsPos,GetFont(),50," ");
     fpsText->Init();
     fpsText->SetTarget(GetWindow(),GetGameView(),GetFixedView(),GetParallaxView());
+}
+
+void Game::RestartGame()
+{
+    SetAttempts(GetAttempts() + 1);
+    CreateLevel();
+    ChangeState(Gameplay_State);
 }
 
 #pragma endregion 

@@ -71,9 +71,9 @@ void OptionsMenuScene::CreateText()
 void OptionsMenuScene::CreateSliders()
 {
     const auto soundPos = sf::Vector2f(300.f,GetWindow().getSize().y / 2.f - 100.f);
-    const auto soundSlider = SliderBar(soundPos,sf::Vector2f(400.f,20.f),5.f);
+    const auto soundSlider = SliderBar(soundPos,sf::Vector2f(400.f,20.f),10.f);
     const auto musicPos = sf::Vector2f(GetWindow().getSize().x/ 2.f + 100.f,GetWindow().getSize().y / 2.f - 100.f);
-    const auto musicSlider = SliderBar(musicPos,sf::Vector2f(400.f,20.f),5.f);
+    const auto musicSlider = SliderBar(musicPos,sf::Vector2f(400.f,20.f),10.f);
     sliderList.emplace_back(soundSlider);
     sliderList.emplace_back(musicSlider);
     for (auto &slider : sliderList)

@@ -108,9 +108,13 @@ void BaseLevelScene::BindButtons()
 
 void BaseLevelScene::CreateText()
 {
-    const auto scorePos = sf::Vector2f(static_cast<float>(GetWindow().getSize().x) /2.f + 300.f,50.f);
+    const auto scorePos = sf::Vector2f(GetWindow().getSize().x/2.f + 300.f,50.f);
     const auto scoreText = Text(scorePos,GetGame().GetFont(),50,std::to_string(0.f));
+    const auto attemptPos = static_cast<sf::Vector2f>(GetWindow().getSize())/2.f;
+    auto attemptText = Text(attemptPos,GetGame().GetFont(),50,"Attempt " + std::to_string(GetGame().GetAttempts()));
+    attemptText.bFixed = false;
     textList.emplace_back(scoreText);
+    textList.emplace_back(attemptText);
     for (auto &text : textList)
     {
         text.SetTarget(GetWindow(),GetGameView(),GetFixedView(),GetParallaxView());
@@ -122,7 +126,7 @@ void BaseLevelScene::ViewUpdate()
 {
     if (player->GetSprite().getPosition().x > GetGameView().getCenter().x - 200.f)
     {
-        if (player->GetSprite().getPosition().x <= (winPortal->GetSprite().getPosition().x - 1000.f))
+        if (player->GetSprite().getPosition().x <= winPortal->GetSprite().getPosition().x - 1000.f)
         {
             bStart = true;
             GetParallaxView().move(50.f * Main::GetFixedDeltaSeconds(), 0.f);
@@ -133,35 +137,43 @@ void BaseLevelScene::ViewUpdate()
 
 void BaseLevelScene::CollisionCheck()
 {
-    if (player->GetCollider().intersects(winPortal->GetCollider()))
+    PickupCheck();
+    FloorCheck();
+    if (bRestarted)
     {
-        GetGame().ChangeState(GameVictory_State);
+        bRestarted = false;
+        return;
     }
-    
-    if (player->GetSprite().getPosition().y > GetWindow().getSize().y)
+    BoundsCheck();
+    if (bRestarted)
     {
-        GetGame().ChangeState(GameOver_State);
+        bRestarted = false;
+        return;
     }
+    ObstacleCheck();
+    if (bRestarted)
+    {
+        bRestarted = false;
+        return;
+    }
+    WinCheck();
+}
 
+void BaseLevelScene::PickupCheck()
+{
     for (int i = 0; i < std::size(pickupList); i++)
     {
         if (player->GetCollider().intersects(pickupList[i].GetCollider()))
         {
             pickupList.erase(pickupList.begin() + i);
-            Game::IncreaseScore(1);
+            score++;
             break;
         }
     }
+}
 
-    for (const auto &obs : obsList)
-    {
-        if (player->GetCollider().intersects(obs.GetCollider()))
-        {
-            GetGame().ChangeState(GameOver_State);
-            break;
-        }
-    }
-
+void BaseLevelScene::FloorCheck()
+{
     bool bOnFloor = false;
     for (auto& floor : floorList)
     {
@@ -176,7 +188,10 @@ void BaseLevelScene::CollisionCheck()
             }
             else
             {
-                GetGame().ChangeState(GameOver_State);
+                score = 0;
+                GetGame().RestartGame();
+                bRestarted = true;
+                break;
             }
         }
     }
@@ -185,6 +200,42 @@ void BaseLevelScene::CollisionCheck()
     {
         player->bGravity = true;
         player->bCanJump = false;
+    }
+}
+
+void BaseLevelScene::BoundsCheck()
+{
+    for (const auto &obs : obsList)
+    {
+        if (player->GetCollider().intersects(obs.GetCollider()))
+        {
+            score = 0;
+            GetGame().RestartGame();
+            bRestarted = true;
+            break;
+        }
+    }
+}
+
+void BaseLevelScene::ObstacleCheck()
+{
+    if (player->GetSprite().getPosition().y > GetWindow().getSize().y)
+    {
+        score = 0;
+        GetGame().RestartGame();
+        bRestarted = true;
+    }
+}
+
+void BaseLevelScene::WinCheck() const
+{
+    if (player->GetCollider().intersects(winPortal->GetCollider()))
+    {
+        if (score > GetGame().GetScore())
+        {
+            GetGame().SetScore(score);
+        }
+        GetGame().ChangeState(GameVictory_State);
     }
 }
 
@@ -231,9 +282,5 @@ void BaseLevelScene::SetJumps(int newJumps)
     jumps = newJumps;
 }
 
-sf::Vector2f BaseLevelScene::Multiply(sf::Vector2f vector1, sf::Vector2f vector2)
-{
-    return sf::Vector2f(vector1.x * vector2.x, vector1.y * vector2.y);
-}
 
 

@@ -1,6 +1,15 @@
 ﻿#include "text.h"
 #include <iostream>
 
+Text::Text(const sf::Vector2f& pos, sf::Font font,unsigned size, const std::string& newText,const sf::Color& textColor)
+{
+    this->font = font;
+    this->pos = pos;
+    this->size = size;
+    this->newText = newText;
+    this->textColor = textColor;
+}
+
 void Text::Init()
 {
     text.setFont(font);
@@ -15,15 +24,6 @@ void Text::Init()
 void Text::Render()
 {
     GetWindow().draw(text);
-}
-
-Text::Text(const sf::Vector2f& pos, sf::Font font,unsigned size, const std::string& newText,const sf::Color& textColor)
-{
-    this->font = font;
-    this->pos = pos;
-    this->size = size;
-    this->newText = newText;
-    this->textColor = textColor;
 }
 
 void Text::SetText(const std::string& newText)

@@ -27,7 +27,11 @@ void SliderBar::Tick(float deltaTime)
         const auto mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(GetWindow()));
         if(outlineBar.getGlobalBounds().contains(mousePos))
         {
-            const float value = std::min(std::abs(mousePos.x - outlineBar.getPosition().x) / outlineBar.getSize().x,1.f);
+            auto value = std::min((mousePos.x - outlineBar.getPosition().x) / outlineBar.getSize().x,1.f);
+            if(value < 0.f)
+            {
+                value = 0.f;
+            }
             SetSliderValue(value); 
         }
     }

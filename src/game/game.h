@@ -3,10 +3,10 @@
 #include "../engine/enums/enums.h"
 #include "../engine/ui/text.h"
 
+class Player;
 class PauseMenuScene;
 class MainMenuScene;
 class OptionsMenuScene;
-class GameOverScene;
 class GameVictoryScene;
 class ShopMenuScene;
 class BaseLevelScene;
@@ -15,7 +15,7 @@ class LevelScene;
 class Game final : public Object
 {
 private:
-    void LoadSavedVars();
+    void LoadSavedVars() const;
     
 public:
     void Init() override;
@@ -28,7 +28,6 @@ public:
 private:
     MainMenuScene* mainMenu = nullptr;
     OptionsMenuScene* optionsMenu = nullptr;
-    GameOverScene* gameOver = nullptr;
     GameVictoryScene* gameVictory = nullptr;
     PauseMenuScene* pauseMenu = nullptr;
     ShopMenuScene* shopMenu = nullptr;
@@ -67,11 +66,11 @@ public:
 #pragma region Score
     
 private:
-    static int score;
+    int score = 0;
 
 public:
-    static int GetScore() {return score;}
-    static void IncreaseScore(int bonus) {score += bonus;}
+    int GetScore() const {return score;}
+    void SetScore(int newScore) {score = newScore;}
 
 #pragma endregion 
 
@@ -107,9 +106,22 @@ private:
 public:
     sf::Font& GetFont() {return font;}
     
-#pragma endregion 
+#pragma endregion
+
+#pragma region Attempts
+
+private:
+    int attempts = 0;
 
 public:
+    int GetAttempts() const {return attempts;}
+    void SetAttempts(int newAttempts) {attempts = newAttempts;}
+    
+#pragma endregion
+
+public:
+    void RestartGame();
+    
     static sf::Color colors[4];
 };
 
