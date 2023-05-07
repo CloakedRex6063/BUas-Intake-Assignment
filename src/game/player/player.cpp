@@ -83,4 +83,44 @@ void Player::ApplyForce()
     bCanJump = false;
 }
 
+int Player::GetTexIndex()
+{
+    if (tex == Game::player1Tex)
+    {
+        return 0;
+    }
+    if (tex == Game::player2Tex)
+    {
+        return 1;
+    }
+    if (tex == Game::player3Tex)
+    {
+        return 2;
+    }
+    if (tex == Game::player4Tex)
+    {
+        return 3;
+    }
+    return 0;
+}
+
+void Player::SetTex(PlayerTex newTex)
+{
+    switch (newTex)
+    {
+    case Tex1_Type:
+        tex = Game::player1Tex;
+        break;
+    case Tex2_Type:
+        tex = Game::player2Tex;
+        break;
+    case Tex3_Type:
+        tex = Game::player3Tex;
+        break;
+    case Tex4_Type:
+        tex = Game::player4Tex;
+        break;
+    }
+}
+
 

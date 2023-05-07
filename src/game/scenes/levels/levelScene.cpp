@@ -84,12 +84,12 @@ void LevelScene::CreateFloor()
             sf::Vector2f(0.5f,0.5f),GetGame().floor1Tex},
     });
 
-    const auto Line3Pos = sf::Vector2f(8350.f,windowSize.y - 325.f);
-    const auto Line3Gaps = sf::Vector2f(275.f,-50.f);
-    const auto Line3Size = sf::Vector2f(50.f,25.f);
-    const auto Line3Increase = sf::Vector2f(0.f,0.f);
-    const auto Line3TexMult = sf::Vector2f(1.f,2.f);
-    AddFloorLine(Line3Pos,4,Line3Gaps,Line3Size,Line3Increase,Line3TexMult,GetGame().floor1Tex);
+    const auto Line2Pos = sf::Vector2f(8350.f,windowSize.y - 325.f);
+    const auto Line2Gaps = sf::Vector2f(275.f,-50.f);
+    const auto Line2Size = sf::Vector2f(50.f,25.f);
+    const auto Line2Increase = sf::Vector2f(0.f,0.f);
+    const auto Line2TexMult = sf::Vector2f(1.f,2.f);
+    AddFloorLine(Line2Pos,4,Line2Gaps,Line2Size,Line2Increase,Line2TexMult,GetGame().floor1Tex);
 
     floorData.insert(floorData.end(),
 {
@@ -109,23 +109,23 @@ void LevelScene::CreateFloor()
             sf::Vector2f(0.5f,0.5f), GetGame().floor1Tex}
     });
     
-    const auto Line4Pos = sf::Vector2f(13250.f,525.f);
-    const auto Line4Gaps = sf::Vector2f(450.f,100.f);
-    const auto Line4Size = sf::Vector2f(300.f,25.f);
-    const auto Line4Increase = sf::Vector2f(100.f,0.f);
-    const auto Line4TexMult = sf::Vector2f(1.f,2.f);
-    AddFloorLine(Line4Pos,2,Line4Gaps,Line4Size,Line4Increase,Line4TexMult,GetGame().floor1Tex);
+    const auto Line3Pos = sf::Vector2f(13250.f,525.f);
+    const auto Line3Gaps = sf::Vector2f(450.f,100.f);
+    const auto Line3Size = sf::Vector2f(300.f,25.f);
+    const auto Line3Increase = sf::Vector2f(100.f,0.f);
+    const auto Line3TexMult = sf::Vector2f(1.f,2.f);
+    AddFloorLine(Line3Pos,2,Line3Gaps,Line3Size,Line3Increase,Line3TexMult,GetGame().floor1Tex);
 
     floorData.insert(floorData.end(),
-            {sf::Vector2f(14250.f,725.f),sf::Vector2f(500.f,25.f),
+{sf::Vector2f(14250.f,725.f),sf::Vector2f(500.f,25.f),
                 sf::Vector2f(1.f,1.f), GetGame().floor1Tex});
 
-    const auto Line5Pos = sf::Vector2f(14650.f,725.f);
-    const auto Line5Gaps = sf::Vector2f(250.f,-100.f);
-    const auto Line5Size = sf::Vector2f(50.f,25.f);
-    const auto Line5Increase = sf::Vector2f(0.f,0.f);
-    const auto Line5TexMult = sf::Vector2f(1.f,1.f);
-    AddFloorLine(Line5Pos,6,Line5Gaps,Line5Size,Line5Increase,Line5TexMult,GetGame().floor1Tex);
+    const auto Line4Pos = sf::Vector2f(14650.f,725.f);
+    const auto Line4Gaps = sf::Vector2f(250.f,-100.f);
+    const auto Line4Size = sf::Vector2f(50.f,25.f);
+    const auto Line4Increase = sf::Vector2f(0.f,0.f);
+    const auto Line4TexMult = sf::Vector2f(1.f,2.f);
+    AddFloorLine(Line4Pos,6,Line4Gaps,Line4Size,Line4Increase,Line4TexMult,GetGame().floor1Tex);
 
     floorData.insert(floorData.end(),
 {

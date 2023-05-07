@@ -26,7 +26,7 @@ void OptionsMenuScene::BindButtons()
     back = [&]
     {
         GetGame().ChangeState(MainMenu_State);
-        SaveFile::SaveData(AudioManager::GetSoundVolume(),AudioManager::GetMusicVolume(),Main::GetVsync(),Game::GetShowFPS());
+        SaveFile::SaveSettings(AudioManager::GetSoundVolume(),AudioManager::GetMusicVolume(),Main::GetVsync(),Game::GetShowFPS());
     };
     vsync = [&]
     {

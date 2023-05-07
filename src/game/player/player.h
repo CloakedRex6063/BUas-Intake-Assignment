@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "../../engine/object.h"
+#include "../../engine/enums/enums.h"
 
 
 class Player final : public Object
@@ -40,5 +41,9 @@ private:
     void ApplyForce();
 
 public:
+    static sf::Texture* GetTex() {return tex;}
+    static int GetTexIndex();
+    static void SetTex(PlayerTex newTex);
+private:
     static sf::Texture* tex;
 };

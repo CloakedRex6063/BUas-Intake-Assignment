@@ -1,7 +1,7 @@
 ﻿#include "text.h"
 #include <iostream>
 
-Text::Text(const sf::Vector2f& pos, sf::Font font,unsigned size, const std::string& newText,const sf::Color& textColor)
+Text::Text(const sf::Vector2f& pos, const sf::Font& font,unsigned size, const std::string& newText,const sf::Color& textColor)
 {
     this->font = font;
     this->pos = pos;

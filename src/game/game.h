@@ -43,34 +43,41 @@ public:
 #pragma region Textures
 
 private:
-    void CreateTextures();
+    static void CreateTextures();
 
 public:
-    sf::Texture* playerTex = nullptr;
+    static sf::Texture* player1Tex;
+    static sf::Texture* player2Tex;
+    static sf::Texture* player3Tex;
+    static sf::Texture* player4Tex;
     
-    sf::Texture* playTex = nullptr;
-    sf::Texture* pauseTex = nullptr;
-    sf::Texture* menuTex = nullptr;
-    sf::Texture* restartTex = nullptr;
-    sf::Texture* backTex = nullptr;
-    sf::Texture* shopTex = nullptr;
-    sf::Texture* optionsTex = nullptr;
-    sf::Texture* tickTex = nullptr;
-    sf::Texture* unTickTex = nullptr;
+    static sf::Texture* playTex;
+    static sf::Texture* pauseTex;
+    static sf::Texture* menuTex;
+    static sf::Texture* restartTex;
+    static sf::Texture* backTex;
+    static sf::Texture* shopTex;
+    static sf::Texture* optionsTex;
+    static sf::Texture* tickTex;
+    static sf::Texture* unTickTex;
     
-    sf::Texture* floor1Tex = nullptr;
-    sf::Texture* floor2Tex = nullptr;
+    static sf::Texture* floor1Tex;
+    static sf::Texture* floor2Tex;
 
 #pragma endregion 
 
 #pragma region Score
     
 private:
-    int score = 0;
+    static int usedCoins;
+    static int coins;
 
 public:
-    int GetScore() const {return score;}
-    void SetScore(int newScore) {score = newScore;}
+    static int GetUsedCoins() {return usedCoins;}
+    static void SetUsedCoins(int newCoins) {usedCoins = newCoins;}
+
+    static int GetCoins() {return coins;}
+    static void SetCoins(int newCoins) {coins = newCoins;}
 
 #pragma endregion 
 

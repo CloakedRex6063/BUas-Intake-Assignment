@@ -10,7 +10,33 @@
 #include "scenes/ui/shop menu/shopMenuScene.h"
 #include "scenes/levels/levelScene.h"
 
+#pragma region Textures Initialisation
+
+sf::Texture* Game::player1Tex = new sf::Texture();
+sf::Texture* Game::player2Tex = new sf::Texture();
+sf::Texture* Game::player3Tex = new sf::Texture();
+sf::Texture* Game::player4Tex = new sf::Texture();
+
+sf::Texture* Game::playTex = new sf::Texture();
+sf::Texture* Game::pauseTex = new sf::Texture();
+sf::Texture* Game::menuTex = new sf::Texture();
+sf::Texture* Game::restartTex = new sf::Texture();
+sf::Texture* Game::backTex = new sf::Texture();
+sf::Texture* Game::shopTex = new sf::Texture();
+sf::Texture* Game::optionsTex = new sf::Texture();
+sf::Texture* Game::tickTex = new sf::Texture();
+sf::Texture* Game::unTickTex = new sf::Texture();
+
+sf::Texture* Game::floor1Tex = new sf::Texture();
+sf::Texture* Game::floor2Tex = new sf::Texture();
+
+#pragma endregion 
+
 bool Game::bShowFPS = false;
+
+int Game::coins = 0;
+int Game::usedCoins = 0;
+
 sf::Color Game::colors[4] = {sf::Color::Yellow, sf::Color::Cyan, sf::Color::Green, sf::Color::Magenta}; 
 
 void Game::LoadSavedVars() const
@@ -19,7 +45,7 @@ void Game::LoadSavedVars() const
     float musicVolume;
     bool bVsync;
     bool bFps;
-    SaveFile::LoadData(soundVolume,musicVolume,bVsync,bFps);
+    SaveFile::LoadSettings(soundVolume,musicVolume,bVsync,bFps);
     
     AudioManager::SetSoundVolume(soundVolume);
     optionsMenu->GetSliderList()[0].SetSliderValue(AudioManager::GetSoundVolume());
@@ -33,6 +59,21 @@ void Game::LoadSavedVars() const
 
     SetShowFPS(bFps);
     optionsMenu->GetButtonList()[2].SetTexture(bFps ? tickTex : unTickTex);
+
+    int playerTex;
+    SaveFile::LoadData(coins,usedCoins, playerTex);
+    Player::SetTex(static_cast<PlayerTex>(playerTex));
+    shopMenu->GetSprite().setTexture(Player::GetTex());
+
+    bool b1;
+    bool b2;
+    bool b3;
+    SaveFile::LoadButtonState(b1,b2,b3);
+    auto col = sf::Color::White;
+    col.a = b1 ? 100 : 255;
+    shopMenu->GetButtonList()[2].SetColor(col);
+    shopMenu->GetButtonList()[3].SetColor(col);
+    shopMenu->GetButtonList()[4].SetColor(col);
 }
 
 #pragma region Inherited functions
@@ -41,17 +82,14 @@ void Game::Init()
 {
     InitText();
     CreateTextures();
-    Player::tex = playerTex;
     CreateBaseScenes();
     AudioManager::Init();
-    LoadSavedVars();
     ChangeState(MainMenu_State);
+    LoadSavedVars();
 }
 
 void Game::Tick(float deltaTime)
 {
-    fpsText->SetText(bShowFPS ? std::to_string(Main::GetFPS()) : "");
-    fpsText->Tick(deltaTime);
     switch (currentGameState)
     {
     case MainMenu_State:
@@ -63,7 +101,7 @@ void Game::Tick(float deltaTime)
     case Pause_State:
         pauseMenu->Tick(deltaTime);
         break;
-    case GameVictory_State:
+    case Victory_State:
         gameVictory->Tick(deltaTime);
         break;
     case Shop_State:
@@ -74,11 +112,12 @@ void Game::Tick(float deltaTime)
         break;
     case Restart_State: break;
     }
+    fpsText->SetText(bShowFPS ? std::to_string(Main::GetFPS()) : "");
+    fpsText->Tick(deltaTime);
 }
 
 void Game::PhysicsTick(float fixedDeltaTime)
 {
-    fpsText->PhysicsTick(fixedDeltaTime);
     switch (currentGameState)
     {
     case MainMenu_State:
@@ -90,7 +129,7 @@ void Game::PhysicsTick(float fixedDeltaTime)
     case Pause_State:
         pauseMenu->PhysicsTick(fixedDeltaTime);
         break;
-    case GameVictory_State:
+    case Victory_State:
         gameVictory->PhysicsTick(fixedDeltaTime);
         break;
     case Shop_State:
@@ -101,11 +140,11 @@ void Game::PhysicsTick(float fixedDeltaTime)
         break;
     case Restart_State: break;
     }
+    fpsText->PhysicsTick(fixedDeltaTime);
 }
 
 void Game::Render()
 {
-    fpsText->Render();
     switch (currentGameState)
     {
     case MainMenu_State:
@@ -117,7 +156,7 @@ void Game::Render()
     case Pause_State:
         pauseMenu->Render();
         break;
-    case GameVictory_State:
+    case Victory_State:
         gameVictory->Render();
         break;
     case Shop_State:
@@ -128,6 +167,8 @@ void Game::Render()
         break;
     case Restart_State: break;
     }
+    GetWindow().setView(GetFixedView());
+    fpsText->Render();
 }
 
 #pragma endregion
@@ -175,31 +216,22 @@ void Game::CreateLevel()
 
 void Game::CreateTextures()
 {
-    playerTex = new sf::Texture();
-    playerTex->loadFromFile("Assets/Textures/Player2.png");
+    player1Tex->loadFromFile("Assets/Textures/Player1.png");
+    player2Tex->loadFromFile("Assets/Textures/Player2.png");
+    player3Tex->loadFromFile("Assets/Textures/Player3.png");
+    player4Tex->loadFromFile("Assets/Textures/Player4.png");
     
-    playTex = new sf::Texture();
     playTex->loadFromFile("Assets/Textures/PlayButton.png");
-    pauseTex = new sf::Texture();
     pauseTex->loadFromFile("Assets/Textures/PauseButton.png");
-    menuTex = new sf::Texture();
     menuTex->loadFromFile("Assets/Textures/MainMenu.png");
-    restartTex = new sf::Texture();
     restartTex->loadFromFile("Assets/Textures/Restart.png");
-    backTex = new sf::Texture();
     backTex->loadFromFile("Assets/Textures/Back.png");
-    shopTex = new sf::Texture();
     shopTex->loadFromFile("Assets/Textures/Shop.png");
-    optionsTex = new sf::Texture();
     optionsTex->loadFromFile("Assets/Textures/MainMenu.png");
-    tickTex = new sf::Texture();
     tickTex->loadFromFile("Assets/Textures/Tick.png");
-    unTickTex = new sf::Texture();
     unTickTex->loadFromFile("Assets/Textures/UnTick.png");
-
-    floor1Tex = new sf::Texture();
+    
     floor1Tex->loadFromFile("Assets/Textures/Floor1.png");
-    floor2Tex = new sf::Texture();
     floor2Tex->loadFromFile("Assets/Textures/Floor2.png");
 }
 
@@ -229,7 +261,7 @@ void Game::ChangeState(GameStates newState)
     case Pause_State:
         AudioManager::PauseMusic();
         break;
-    case GameVictory_State:
+    case Victory_State:
         AudioManager::StopMusic();
         break;
     case Shop_State: break;

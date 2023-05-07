@@ -1,5 +1,6 @@
 ﻿#include "baseLevelScene.h"
 #include "../../../engine/main/main.h"
+#include "../../../engine/save file/saveFile.h"
 
 int BaseLevelScene::jumps = 0;
 
@@ -189,9 +190,9 @@ void BaseLevelScene::FloorCheck()
             else
             {
                 score = 0;
-                GetGame().RestartGame();
                 bRestarted = true;
-                break;
+                GetGame().RestartGame();
+                return;
             }
         }
     }
@@ -210,9 +211,9 @@ void BaseLevelScene::BoundsCheck()
         if (player->GetCollider().intersects(obs.GetCollider()))
         {
             score = 0;
-            GetGame().RestartGame();
             bRestarted = true;
-            break;
+            GetGame().RestartGame();
+            return;
         }
     }
 }
@@ -222,8 +223,8 @@ void BaseLevelScene::ObstacleCheck()
     if (player->GetSprite().getPosition().y > GetWindow().getSize().y)
     {
         score = 0;
-        GetGame().RestartGame();
         bRestarted = true;
+        GetGame().RestartGame();
     }
 }
 
@@ -231,11 +232,12 @@ void BaseLevelScene::WinCheck() const
 {
     if (player->GetCollider().intersects(winPortal->GetCollider()))
     {
-        if (score > GetGame().GetScore())
+        if (score > Game::GetCoins())
         {
-            GetGame().SetScore(score);
+            Game::SetCoins(score);
         }
-        GetGame().ChangeState(GameVictory_State);
+        SaveFile::SaveData(Game::GetCoins(),Game::GetUsedCoins(),Player::GetTexIndex());
+        GetGame().ChangeState(Victory_State);
     }
 }
 

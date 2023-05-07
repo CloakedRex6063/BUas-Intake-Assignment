@@ -8,7 +8,15 @@ enum GameStates
     Gameplay_State,
     Pause_State,
     Restart_State,
-    GameVictory_State
+    Victory_State
+};
+
+enum PlayerTex
+{
+    Tex1_Type,
+    Tex2_Type,
+    Tex3_Type,
+    Tex4_Type
 };
 
 enum MusicType
