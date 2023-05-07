@@ -1,4 +1,4 @@
-﻿#include "levelScene.h"
+#include "levelScene.h"
 #include "../../../engine/structs/structs.h"
 #include "../../obstacles/spike.h"
 
@@ -60,7 +60,7 @@ void LevelScene::CreateFloor()
     std::vector<FloorData> floorData =
         {
             {sf::Vector2f(-windowSize.x/2.f,windowSize.y - 50.f),sf::Vector2f(5700,100.f),
-                sf::Vector2f(0.5f,0.5f),GetGame().floor1Tex}
+                sf::Vector2f(0.5f,0.5f),Game::floor1Tex}
         };
     
     const auto Line1Pos = sf::Vector2f(3000,windowSize.y - 135.f);
@@ -68,20 +68,20 @@ void LevelScene::CreateFloor()
     const auto Line1Size = sf::Vector2f(50.f,75.f);
     const auto Line1Increase = sf::Vector2f(0.f,100.f);
     const auto Line1TexMult = sf::Vector2f(1.f,1.f);
-    AddFloorLine(Line1Pos,3,Line1Gaps,Line1Size,Line1Increase,Line1TexMult,GetGame().floor2Tex);
+    AddFloorLine(Line1Pos,3,Line1Gaps,Line1Size,Line1Increase,Line1TexMult,Game::floor2Tex);
     
     floorData.insert(floorData.end(),
 {
         {sf::Vector2f(4700.f,windowSize.y - 50.f),sf::Vector2f(1000.f,300.f),
-                sf::Vector2f(0.5f,0.5f),GetGame().floor1Tex},
+                sf::Vector2f(0.5f,0.5f),Game::floor1Tex},
         {sf::Vector2f(5700.f,windowSize.y - 50.f),sf::Vector2f(200.f,100.f),
-                sf::Vector2f(0.5f,0.5f),GetGame().floor1Tex},
+                sf::Vector2f(0.5f,0.5f),Game::floor1Tex},
         {sf::Vector2f(5900.f,windowSize.y - 50.f),sf::Vector2f(1000.f,300.f),
-            sf::Vector2f(0.5f,0.5f),GetGame().floor1Tex},
+            sf::Vector2f(0.5f,0.5f),Game::floor1Tex},
         {sf::Vector2f(6900.f,windowSize.y - 50.f),sf::Vector2f(200.f,100.f),
-            sf::Vector2f(0.5f,0.5f),GetGame().floor1Tex},
+            sf::Vector2f(0.5f,0.5f),Game::floor1Tex},
         {sf::Vector2f(7100.f,windowSize.y - 150.f),sf::Vector2f(1000.f,300.f),
-            sf::Vector2f(0.5f,0.5f),GetGame().floor1Tex},
+            sf::Vector2f(0.5f,0.5f),Game::floor1Tex},
     });
 
     const auto Line2Pos = sf::Vector2f(8350.f,windowSize.y - 325.f);
@@ -89,24 +89,24 @@ void LevelScene::CreateFloor()
     const auto Line2Size = sf::Vector2f(50.f,25.f);
     const auto Line2Increase = sf::Vector2f(0.f,0.f);
     const auto Line2TexMult = sf::Vector2f(1.f,2.f);
-    AddFloorLine(Line2Pos,4,Line2Gaps,Line2Size,Line2Increase,Line2TexMult,GetGame().floor1Tex);
+    AddFloorLine(Line2Pos,4,Line2Gaps,Line2Size,Line2Increase,Line2TexMult,Game::floor1Tex);
 
     floorData.insert(floorData.end(),
 {
         {sf::Vector2f(9400,windowSize.y),sf::Vector2f(1600.f,800.f),
-            sf::Vector2f(0.5f,0.5f), GetGame().floor1Tex},
+            sf::Vector2f(0.5f,0.5f), Game::floor1Tex},
         {sf::Vector2f(9800.f,300.f),sf::Vector2f(200.f,25.f),
-            sf::Vector2f(1.f,2.f), GetGame().floor1Tex},
+            sf::Vector2f(1.f,2.f), Game::floor1Tex},
         {sf::Vector2f(10300.f,300.f),sf::Vector2f(200.f,25.f),
-            sf::Vector2f(1.f,2.f),GetGame().floor1Tex},
+            sf::Vector2f(1.f,2.f),Game::floor1Tex},
         {sf::Vector2f(11000.f,windowSize.y),sf::Vector2f(1000.f,600.f),
-            sf::Vector2f(0.5f,0.5f), GetGame().floor1Tex},
+            sf::Vector2f(0.5f,0.5f), Game::floor1Tex},
         {sf::Vector2f(11400.f,390.f),sf::Vector2f(200.f,25.f),
-            sf::Vector2f(1.f,2.f), GetGame().floor1Tex},
+            sf::Vector2f(1.f,2.f), Game::floor1Tex},
         {sf::Vector2f(12000.f,windowSize.y),sf::Vector2f(400.f,800.f),
-            sf::Vector2f(0.5f,0.5f), GetGame().floor1Tex},
+            sf::Vector2f(0.5f,0.5f), Game::floor1Tex},
         {sf::Vector2f(12400.f,windowSize.y),sf::Vector2f(700.f,600.f),
-            sf::Vector2f(0.5f,0.5f), GetGame().floor1Tex}
+            sf::Vector2f(0.5f,0.5f), Game::floor1Tex}
     });
     
     const auto Line3Pos = sf::Vector2f(13250.f,525.f);
@@ -114,31 +114,31 @@ void LevelScene::CreateFloor()
     const auto Line3Size = sf::Vector2f(300.f,25.f);
     const auto Line3Increase = sf::Vector2f(100.f,0.f);
     const auto Line3TexMult = sf::Vector2f(1.f,2.f);
-    AddFloorLine(Line3Pos,2,Line3Gaps,Line3Size,Line3Increase,Line3TexMult,GetGame().floor1Tex);
+    AddFloorLine(Line3Pos,2,Line3Gaps,Line3Size,Line3Increase,Line3TexMult,Game::floor1Tex);
 
     floorData.insert(floorData.end(),
 {sf::Vector2f(14250.f,725.f),sf::Vector2f(500.f,25.f),
-                sf::Vector2f(1.f,1.f), GetGame().floor1Tex});
+                sf::Vector2f(1.f,1.f), Game::floor1Tex});
 
     const auto Line4Pos = sf::Vector2f(14650.f,725.f);
     const auto Line4Gaps = sf::Vector2f(250.f,-100.f);
     const auto Line4Size = sf::Vector2f(50.f,25.f);
     const auto Line4Increase = sf::Vector2f(0.f,0.f);
     const auto Line4TexMult = sf::Vector2f(1.f,2.f);
-    AddFloorLine(Line4Pos,6,Line4Gaps,Line4Size,Line4Increase,Line4TexMult,GetGame().floor1Tex);
+    AddFloorLine(Line4Pos,6,Line4Gaps,Line4Size,Line4Increase,Line4TexMult,Game::floor1Tex);
 
     floorData.insert(floorData.end(),
 {
     {sf::Vector2f(15800.f,windowSize.y),sf::Vector2f(2000.f,600.f),
-        sf::Vector2f(0.5f,0.5f), GetGame().floor1Tex},
+        sf::Vector2f(0.5f,0.5f), Game::floor1Tex},
     {sf::Vector2f(16200.f,200.f),sf::Vector2f(1600.f,400.f),
-        sf::Vector2f(0.5f,0.5f), GetGame().floor1Tex}
+        sf::Vector2f(0.5f,0.5f), Game::floor1Tex}
     });
 
     for (const auto& data : floorData)
     {
         sf::Vector2f texMultiplier = sf::Vector2f(data.size.x * data.texSize.x, data.size.y * data.texSize.y);
-        auto floor = Floor(data.position, data.size, texMultiplier,GetGame().floor1Tex);
+        auto floor = Floor(data.position, data.size, texMultiplier,Game::floor1Tex);
         floorList.emplace_back(floor);
     }
     

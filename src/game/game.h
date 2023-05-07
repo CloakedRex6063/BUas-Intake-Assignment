@@ -7,7 +7,7 @@ class Player;
 class PauseMenuScene;
 class MainMenuScene;
 class OptionsMenuScene;
-class GameVictoryScene;
+class VictoryScene;
 class ShopMenuScene;
 class BaseLevelScene;
 class LevelScene;
@@ -28,7 +28,7 @@ public:
 private:
     MainMenuScene* mainMenu = nullptr;
     OptionsMenuScene* optionsMenu = nullptr;
-    GameVictoryScene* gameVictory = nullptr;
+    VictoryScene* gameVictory = nullptr;
     PauseMenuScene* pauseMenu = nullptr;
     ShopMenuScene* shopMenu = nullptr;
     void CreateBaseScenes();

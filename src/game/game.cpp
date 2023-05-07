@@ -5,7 +5,7 @@
 #include "../engine/save file/saveFile.h"
 #include "scenes/ui/main menu/mainMenuScene.h"
 #include "scenes/ui/options menu/optionsMenuScene.h"
-#include "scenes/ui/game victory/gameVictoryScene.h"
+#include "scenes/ui/game victory/victoryScene.h"
 #include "scenes/ui/pause menu/pauseMenuScene.h"
 #include "scenes/ui/shop menu/shopMenuScene.h"
 #include "scenes/levels/levelScene.h"
@@ -180,7 +180,7 @@ void Game::CreateBaseScenes()
     mainMenu->SetGame(*this);
     mainMenu->Init();
     
-    gameVictory = new GameVictoryScene();
+    gameVictory = new VictoryScene();
     gameVictory->SetTarget(GetWindow(),GetGameView(),GetFixedView(),GetParallaxView());
     gameVictory->SetGame(*this);
     gameVictory->Init();

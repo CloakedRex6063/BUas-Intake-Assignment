@@ -1,4 +1,4 @@
-﻿#include "main.h"
+#include "main.h"
 #include <iostream>
 
 #include "../audio manager/audioManager.h"
@@ -83,7 +83,7 @@ void Main::RunTick()
     window.display();
 }
 
-int main()
+int WinMain()
 {
     Main main;
     main.GameLoop();

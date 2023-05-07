@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "../enums/enums.h"
 #include "../object.h"
 

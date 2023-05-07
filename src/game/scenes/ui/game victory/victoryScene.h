@@ -1,7 +1,7 @@
-﻿#pragma once
+#pragma once
 #include "../../base/baseScene.h"
 
-class GameVictoryScene : public BaseScene
+class VictoryScene : public BaseScene
 {
     std::function<void()> mainMenu;
     std::function<void()> restart;

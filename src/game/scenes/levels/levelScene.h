@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "../base/baseLevelScene.h"
 
 class LevelScene final : public BaseLevelScene

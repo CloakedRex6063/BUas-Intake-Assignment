@@ -13,6 +13,6 @@ Level Music: Climbing Through Air 2 - Tomas Skyldeberg, Epidemic Sound
 
 Menu Music: Energetic Indie Rock Upbeat - OYStudio, Pixabay
 
-Menu Sounds: Fantasy UI Sound Effects - Atelier Magicae
+Menu Sounds: Fantasy UI Sound Effects - Atelier Magicae, Itch.io
 
 Library used: SFML 2.5.1
