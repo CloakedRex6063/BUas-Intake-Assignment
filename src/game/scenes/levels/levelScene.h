@@ -9,5 +9,6 @@ protected:
     void CreateObstacles() override;
     void CreateFloor() override;
     void CreateWinPortal() override;
+    void CreateFlyPortal() override;
     void CreatePlayer() override;
 };

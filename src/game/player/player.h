@@ -14,6 +14,7 @@ public:
     
     bool bGravity = false;
     bool bCanJump = true;
+    bool bFly = false;
     float terminalVel = 1000.f;
 
     sf::RectangleShape& GetSprite() {return sprite;}

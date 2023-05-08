@@ -2,16 +2,19 @@ This game is inspired by Geometry Dash.
 
 Space - Jump
 
-Dash is a fast-paced platformer game where players must run, jump, and 
-dodge through levels filled with obstacles and hazards. Collect coins 
-to unlock new characters. It's an exciting and challenging
-game that is perfect for fans of action-packed platformers.
+Dash is an action-packed platformer game that requires players to navigate
+through a level filled with obstacles and hazards by running and jumping. 
+The game also features a coin-collecting system that unlocks new characters. 
+It's an exciting and challenging game that is sure to appeal to fans of 
+fast-paced platformers.
 
 Credits:
 
 Level Music: Climbing Through Air 2 - Tomas Skyldeberg, Epidemic Sound
 
 Menu Music: Energetic Indie Rock Upbeat - OYStudio, Pixabay
+
+Death Sounds: Videogame Death Sound - Fupicat, Pixabay
 
 Menu Sounds: Fantasy UI Sound Effects - Atelier Magicae, Itch.io
 

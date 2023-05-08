@@ -13,6 +13,7 @@ void BaseLevelScene::Init()
 {
     BaseScene::Init();
     CreateFloor();
+    CreateFlyPortal();
     CreateObstacles();
     CreatePickups();
     CreatePlayer();
@@ -64,6 +65,10 @@ void BaseLevelScene::PhysicsTick(float fixedDeltaTime)
 void BaseLevelScene::Render()
 {
     GetWindow().setView(GetGameView());
+    for (auto &port : flyPortalList)
+    {
+        port.Render();
+    }
     for (auto &floor: floorList)
     {
         floor.Render();
@@ -88,7 +93,7 @@ void BaseLevelScene::CreateButtons()
 {
     const auto pausePos = sf::Vector2f(static_cast<float>(GetWindow().getSize().x) - 50.f,50.f);
     const auto pauseSize = sf::Vector2f(50.f,50.f);
-    const auto pauseBut = Button(pausePos,pauseSize,5.f,GetGame().pauseTex);
+    const auto pauseBut = Button(pausePos,pauseSize,5.f,Game::pauseTex);
     buttonList.emplace_back(pauseBut);
     for (auto &but : buttonList)
     {
@@ -125,20 +130,19 @@ void BaseLevelScene::CreateText()
 
 void BaseLevelScene::ViewUpdate()
 {
-    if (player->GetSprite().getPosition().x > GetGameView().getCenter().x - 200.f)
+    if (player->GetSprite().getPosition().x > GetGameView().getCenter().x - 200.f &&
+        player->GetSprite().getPosition().x <= winPortal->GetSprite().getPosition().x - 950.f)
     {
-        if (player->GetSprite().getPosition().x <= winPortal->GetSprite().getPosition().x - 1000.f)
-        {
-            bStart = true;
-            GetParallaxView().move(50.f * Main::GetFixedDeltaSeconds(), 0.f);
-            GetGameView().move(moveSpeed * Main::GetFixedDeltaSeconds(), 0.f);
-        }
+        bStart = true;
+        GetParallaxView().move(50.f * Main::GetFixedDeltaSeconds(), 0.f);
+        GetGameView().move(moveSpeed * Main::GetFixedDeltaSeconds(), 0.f);
     }
 }
 
 void BaseLevelScene::CollisionCheck()
 {
     PickupCheck();
+    FlyCheck();
     FloorCheck();
     if (bRestarted)
     {
@@ -178,7 +182,7 @@ void BaseLevelScene::FloorCheck()
     bool bOnFloor = false;
     for (auto& floor : floorList)
     {
-        if (player->GetCollider().intersects(floor.GetCollider()))
+        if (player && player->GetCollider().intersects(floor.GetCollider()))
         {
             if (player->GetCollider().top <= floor.GetCollider().top)
             {
@@ -225,6 +229,17 @@ void BaseLevelScene::ObstacleCheck()
         score = 0;
         bRestarted = true;
         GetGame().RestartGame();
+    }
+}
+
+void BaseLevelScene::FlyCheck() const
+{
+    for (const auto& flyPort : flyPortalList)
+    {
+        if (player->GetCollider().intersects(flyPort.GetCollider()))
+        {
+            player->bFly = flyPort.bFly ? true : false;
+        }
     }
 }
 

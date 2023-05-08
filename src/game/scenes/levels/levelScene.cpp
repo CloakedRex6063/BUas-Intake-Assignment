@@ -1,4 +1,7 @@
 #include "levelScene.h"
+
+#include <iostream>
+
 #include "../../../engine/structs/structs.h"
 #include "../../obstacles/spike.h"
 
@@ -29,7 +32,7 @@ void LevelScene::CreateObstacles()
     
     AddSpikeLine(sf::Vector2f(9815,370.f),4,sf::Vector2f(50.f,0.f),30.f);
     
-    AddSpikeLine(sf::Vector2f(10315,370.f),4,sf::Vector2f(50.f,0.f),30.f);
+    AddSpikeLine(sf::Vector2f(10415,370.f),4,sf::Vector2f(50.f,0.f),30.f);
     
     AddSpikeLine(sf::Vector2f(11410,350.f),4,sf::Vector2f(50.f,0.f),30.f);
     
@@ -41,6 +44,45 @@ void LevelScene::CreateObstacles()
         {sf::Vector2f(15910.f, 185.f), 30.f}
     });
 
+    AddSpikeLine(sf::Vector2f(19320,GetWindow().getSize().y - 50.f),10,sf::Vector2f(90.f,0.f),50.f);
+    AddSpikeLine(sf::Vector2f(20870,150.f),10,sf::Vector2f(90.f,0.f),-50.f);
+    AddSpikeLine(sf::Vector2f(22320,GetWindow().getSize().y - 50.f),10,sf::Vector2f(90.f,0.f),50.f);
+    AddSpikeLine(sf::Vector2f(22370,150.f),10,sf::Vector2f(90.f,0.f),-50.f);
+    AddSpikeLine(sf::Vector2f(23870,150.f),10,sf::Vector2f(90.f,0.f),-50.f);
+
+    obstacleData.insert(obstacleData.end(),
+{
+        {sf::Vector2f(32500.f, windowSize.y - 90.f), 40.f},
+        {sf::Vector2f(32560.f, windowSize.y - 90.f), 40.f},
+    });
+
+    AddSpikeLine(sf::Vector2f(32710,windowSize.y - 80.f),7,sf::Vector2f(50.f,0.f),30.f);
+
+    obstacleData.insert(obstacleData.end(),
+{
+        {sf::Vector2f(34200.f, windowSize.y - 90.f), 40.f},
+        {sf::Vector2f(34260.f, windowSize.y - 90.f), 40.f},
+        {sf::Vector2f(35000.f, windowSize.y - 90.f), 40.f},
+        {sf::Vector2f(35040.f, windowSize.y/2.f), -40.f},
+        {sf::Vector2f(35500.f, windowSize.y - 90.f), 40.f},
+        {sf::Vector2f(35540.f, windowSize.y/2.f), -40.f},
+        {sf::Vector2f(35570.f, windowSize.y - 90.f), 40.f},
+        {sf::Vector2f(35610.f, windowSize.y/2.f), -40.f},
+        {sf::Vector2f(36000.f, windowSize.y - 90.f), 40.f},
+        {sf::Vector2f(36040.f, windowSize.y/2.f), -40.f},
+        {sf::Vector2f(36070.f, windowSize.y - 90.f), 40.f},
+        {sf::Vector2f(36110.f, windowSize.y/2.f), -40.f},
+    });
+
+    AddSpikeLine(sf::Vector2f(33220,windowSize.y - 80.f),16,sf::Vector2f(50.f,0.f),30.f);
+
+    obstacleData.insert(obstacleData.end(),{sf::Vector2f(37800.f, windowSize.y - 240.f), 40.f});
+
+    AddSpikeLine(sf::Vector2f(41620,GetWindow().getSize().y - 100.f),10,sf::Vector2f(90.f,0.f),50.f);
+    AddSpikeLine(sf::Vector2f(43670,100.f),10,sf::Vector2f(90.f,0.f),-50.f);
+    AddSpikeLine(sf::Vector2f(45620,GetWindow().getSize().y - 100.f),10,sf::Vector2f(90.f,0.f),50.f);
+    AddSpikeLine(sf::Vector2f(45670,100.f),10,sf::Vector2f(90.f,0.f),-50.f);
+    
     for (const auto& data : obstacleData)
     {
         auto obstacle = Spike(data.position, data.radius);
@@ -97,7 +139,7 @@ void LevelScene::CreateFloor()
             sf::Vector2f(0.5f,0.5f), Game::floor1Tex},
         {sf::Vector2f(9800.f,300.f),sf::Vector2f(200.f,25.f),
             sf::Vector2f(1.f,2.f), Game::floor1Tex},
-        {sf::Vector2f(10300.f,300.f),sf::Vector2f(200.f,25.f),
+        {sf::Vector2f(10400.f,300.f),sf::Vector2f(200.f,25.f),
             sf::Vector2f(1.f,2.f),Game::floor1Tex},
         {sf::Vector2f(11000.f,windowSize.y),sf::Vector2f(1000.f,600.f),
             sf::Vector2f(0.5f,0.5f), Game::floor1Tex},
@@ -129,12 +171,135 @@ void LevelScene::CreateFloor()
 
     floorData.insert(floorData.end(),
 {
-    {sf::Vector2f(15800.f,windowSize.y),sf::Vector2f(2000.f,600.f),
+    {sf::Vector2f(15800.f,windowSize.y),sf::Vector2f(2000.f,500.f),
         sf::Vector2f(0.5f,0.5f), Game::floor1Tex},
-    {sf::Vector2f(16200.f,200.f),sf::Vector2f(1600.f,400.f),
+    {sf::Vector2f(16200.f,200.f),sf::Vector2f(1200.f,400.f),
+        sf::Vector2f(0.5f,0.5f), Game::floor1Tex},
+    {sf::Vector2f(17400,150.f),sf::Vector2f(400,300.f),
+        sf::Vector2f(0.5f,0.5f), Game::floor1Tex},
+    {sf::Vector2f(17800,windowSize.y + 50.f),sf::Vector2f(7500,100.f),
+        sf::Vector2f(0.5f,0.5f), Game::floor1Tex},
+    {sf::Vector2f(17800,0.f),sf::Vector2f(7500,200.f),
         sf::Vector2f(0.5f,0.5f), Game::floor1Tex}
     });
 
+    floorData.insert(floorData.end(),
+{
+    {sf::Vector2f(19200,windowSize.y - 50.f),sf::Vector2f(100.f,100.f),
+        sf::Vector2f(0.5f,0.5f), Game::floor1Tex},
+    {sf::Vector2f(20200,windowSize.y - 50.f),sf::Vector2f(100.f,100.f),
+        sf::Vector2f(0.5f,0.5f), Game::floor1Tex},
+    {sf::Vector2f(20700,150.f),sf::Vector2f(100.f,100.f),
+        sf::Vector2f(0.5f,0.5f), Game::floor1Tex},
+    {sf::Vector2f(21700,150.f),sf::Vector2f(100.f,100.f),
+        sf::Vector2f(0.5f,0.5f), Game::floor1Tex},
+    {sf::Vector2f(22200,windowSize.y - 100.f),sf::Vector2f(100.f,200.f),
+        sf::Vector2f(0.5f,0.5f), Game::floor1Tex},
+    {sf::Vector2f(22200,200.f),sf::Vector2f(100.f,200.f),
+        sf::Vector2f(0.5f,0.5f), Game::floor1Tex},
+    {sf::Vector2f(23200,windowSize.y - 50.f),sf::Vector2f(100.f,100.f),
+        sf::Vector2f(0.5f,0.5f), Game::floor1Tex},
+    {sf::Vector2f(23200,150.f),sf::Vector2f(100.f,100.f),
+        sf::Vector2f(0.5f,0.5f), Game::floor1Tex},
+    {sf::Vector2f(23700,250.f),sf::Vector2f(100.f,300.f),
+        sf::Vector2f(0.5f,0.5f), Game::floor1Tex},
+    {sf::Vector2f(24700,150.f),sf::Vector2f(100.f,100.f),
+        sf::Vector2f(0.5f,0.5f), Game::floor1Tex},
+    {sf::Vector2f(25300,GetWindow().getSize().y - 100.f),sf::Vector2f(1500.f,300.f),
+        sf::Vector2f(0.5f,0.5f), Game::floor1Tex},
+    {sf::Vector2f(25300,150.f),sf::Vector2f(1500.f,300.f),
+        sf::Vector2f(0.5f,0.5f), Game::floor1Tex}
+    }
+    );
+
+    floorData.insert(floorData.begin(),
+{sf::Vector2f(26800,windowSize.y),sf::Vector2f(1000.f,300.f),
+        sf::Vector2f(0.5f,0.5f),Game::floor1Tex});
+
+    AddFloorLine(sf::Vector2f(28050,windowSize.y),3,sf::Vector2f(250.f,-50.f),
+        sf::Vector2f(50.f,300.f),sf::Vector2f(0.f,100.f),sf::Vector2f(1.f,1.f),Game::floor2Tex);
+
+    floorData.insert(floorData.begin(),
+{
+    {sf::Vector2f(28825,GetWindow().getSize().y/2.f + 100.f),sf::Vector2f(50.f,200.f),
+            sf::Vector2f(1.f,1.f),Game::floor2Tex},
+    {sf::Vector2f(28825,windowSize.y),sf::Vector2f(500.f,200.f),
+        sf::Vector2f(0.5f,0.5f),Game::floor2Tex},
+    }
+    );
+
+    AddFloorLine(sf::Vector2f(29550,windowSize.y),5,sf::Vector2f(250.f,-50.f),
+        sf::Vector2f(50.f,300.f),sf::Vector2f(0.f,100.f),sf::Vector2f(1.f,1.f),Game::floor2Tex);
+
+    AddFloorLine(sf::Vector2f(30600,262.f),3,sf::Vector2f(200.f,150.f),
+        sf::Vector2f(100.f,25.f),sf::Vector2f(50.f,0.f),sf::Vector2f(1.f,1.f),Game::floor2Tex);
+
+    floorData.insert(floorData.begin(),
+    {
+        {sf::Vector2f(31400.f,windowSize.y),sf::Vector2f(200.f,300.f),
+                sf::Vector2f(0.5f,0.5f),Game::floor2Tex},
+        {sf::Vector2f(31800.f,windowSize.y),sf::Vector2f(18200.f,100.f),
+            sf::Vector2f(0.5f,0.5f),Game::floor2Tex},
+        {sf::Vector2f(32620.f,windowSize.y - 90.f),sf::Vector2f(80.f,80.f),
+            sf::Vector2f(0.625f,0.625f),Game::floor2Tex},
+        {sf::Vector2f(32800.f,windowSize.y - 150.f),sf::Vector2f(200.f,25.f),
+            sf::Vector2f(1.f,2.f),Game::floor2Tex},
+        {sf::Vector2f(33050.f,windowSize.y - 90.f),sf::Vector2f(160.f,80.f),
+            sf::Vector2f(0.625f,0.625f),Game::floor2Tex},
+        {sf::Vector2f(33375.f,windowSize.y - 150.f),sf::Vector2f(200.f,25.f),
+            sf::Vector2f(1.f,2.f),Game::floor2Tex},
+        {sf::Vector2f(33700.f,windowSize.y - 200.f),sf::Vector2f(200.f,25.f),
+            sf::Vector2f(1.f,2.f),Game::floor2Tex},
+        {sf::Vector2f(34020.f,windowSize.y - 90.f),sf::Vector2f(160.f,80.f),
+            sf::Vector2f(0.625f,0.625f),Game::floor2Tex},
+        {sf::Vector2f(34980.f,320.f),sf::Vector2f(80.f,80.f),
+            sf::Vector2f(0.625f,0.625f),Game::floor2Tex},
+        {sf::Vector2f(35475.f,320.f),sf::Vector2f(160.f,80.f),
+            sf::Vector2f(0.625f,0.625f),Game::floor2Tex},
+        {sf::Vector2f(35975.f,320.f),sf::Vector2f(160.f,80.f),
+            sf::Vector2f(0.625f,0.625f),Game::floor2Tex},
+    }
+    );
+
+    AddFloorLine(sf::Vector2f(36500,windowSize.y - 125.f),3,sf::Vector2f(250.f,-100.f),
+        sf::Vector2f(150.f,25.f),sf::Vector2f(0.f,0.f),sf::Vector2f(1.f,2.f),Game::floor2Tex);
+    AddFloorLine(sf::Vector2f(37150,windowSize.y - 250.f),3,sf::Vector2f(160.f,80.f),
+        sf::Vector2f(80.f,80.f),sf::Vector2f(0.f,0.f),sf::Vector2f(0.625f,0.625f),Game::floor1Tex);
+    AddFloorLine(sf::Vector2f(37300,windowSize.y/ 2.f),4,sf::Vector2f(160.f,80.f),
+        sf::Vector2f(80.f,80.f),sf::Vector2f(0.f,0.f),sf::Vector2f(0.625f,0.625f),Game::floor1Tex);
+
+    floorData.insert(floorData.end(),
+{
+        {sf::Vector2f(39000.f,windowSize.y - 100.f),sf::Vector2f(200.f,100.f),
+            sf::Vector2f(0.5f,0.5f),Game::floor2Tex},
+        {sf::Vector2f(39200.f,windowSize.y - 150.f),sf::Vector2f(1200.f,200.f),
+            sf::Vector2f(0.5f,0.5f),Game::floor2Tex},
+        {sf::Vector2f(39400.f,150.f),sf::Vector2f(1000.f,300.f),
+            sf::Vector2f(0.5f,0.5f),Game::floor2Tex},
+        {sf::Vector2f(40400.f,0.f),sf::Vector2f(9600.f,100.f),
+            sf::Vector2f(0.5f,0.5f),Game::floor2Tex}
+    });
+
+    floorData.insert(floorData.end(),
+{
+        {sf::Vector2f(41500.f,windowSize.y - 100.f),sf::Vector2f(100.f,100.f),
+            sf::Vector2f(0.5f,0.5f),Game::floor2Tex},
+        {sf::Vector2f(42500.f,windowSize.y - 200.f),sf::Vector2f(100.f,300.f),
+            sf::Vector2f(0.5f,0.5f),Game::floor2Tex},
+        {sf::Vector2f(43500.f,200.f),sf::Vector2f(100.f,300.f),
+            sf::Vector2f(0.5f,0.5f),Game::floor2Tex},
+        {sf::Vector2f(44500.f,100.f),sf::Vector2f(100.f,100.f),
+            sf::Vector2f(0.5f,0.5f),Game::floor2Tex},
+        {sf::Vector2f(45500.f,windowSize.y - 100.f),sf::Vector2f(100.f,100.f),
+            sf::Vector2f(0.5f,0.5f),Game::floor2Tex},
+        {sf::Vector2f(45500.f,200.f),sf::Vector2f(100.f,300.f),
+            sf::Vector2f(0.5f,0.5f),Game::floor2Tex},
+        {sf::Vector2f(46500.f,windowSize.y - 150.f),sf::Vector2f(100.f,200.f),
+            sf::Vector2f(0.5f,0.5f),Game::floor2Tex},
+        {sf::Vector2f(46500.f,150.f),sf::Vector2f(100.f,200.f),
+            sf::Vector2f(0.5f,0.5f),Game::floor2Tex},
+    });
+    
     for (const auto& data : floorData)
     {
         sf::Vector2f texMultiplier = sf::Vector2f(data.size.x * data.texSize.x, data.size.y * data.texSize.y);
@@ -151,16 +316,37 @@ void LevelScene::CreateFloor()
 
 void LevelScene::CreateWinPortal()
 {
-    const auto winSize = sf::Vector2f(50.f,100.f);
-    const auto winPos = sf::Vector2f(17750.f,450.f);
-    winPortal = new WinPortal(winPos,winSize);
+    const auto winSize = sf::Vector2f(100.f,700.f);
+    const auto winPos = sf::Vector2f(47450.f,400.f);
+    winPortal = new WinPortal(winPos,winSize,Game::winPortalTex);
     winPortal->SetTarget(GetWindow(),GetGameView(),GetFixedView(),GetParallaxView());
     winPortal->Init();
 }
 
+void LevelScene::CreateFlyPortal()
+{
+    const auto portal1Size = sf::Vector2f(50.f,250.f);
+    const auto portal1Pos = sf::Vector2f(17775.f,425.f);
+    auto portal1 = FlyPortal(portal1Pos,portal1Size,true,Game::flyPortalTex);
+    const auto portal2Size = sf::Vector2f(50.f,250.f);
+    const auto portal2Pos = sf::Vector2f(25325.f,425.f);
+    auto portal2 = FlyPortal(portal2Pos,portal2Size,false,Game::flyPortalTex);
+    const auto portal3Size = sf::Vector2f(50.f,250.f);
+    const auto portal3Pos = sf::Vector2f(40375.f,425.f);
+    auto portal3 = FlyPortal(portal3Pos,portal3Size,true,Game::flyPortalTex);
+    flyPortalList.emplace_back(portal1);
+    flyPortalList.emplace_back(portal2);
+    flyPortalList.emplace_back(portal3);
+    for (auto &port : flyPortalList)
+    {
+        port.SetTarget(GetWindow(),GetGameView(),GetFixedView(),GetParallaxView());
+        port.Init();
+    }
+}
+
 void LevelScene::CreatePlayer()
 {
-    const auto windowSize = static_cast<sf::Vector2f>(GetWindow().getSize());
+    const auto windowSize = sf::Vector2f(GetWindow().getSize());
     const auto pos = sf::Vector2f(-windowSize.x/4.f,windowSize.y - 145.f);
     player = new Player(pos,sf::Vector2f(50,50),moveSpeed,-1050.f,50.f);
     player->SetTarget(GetWindow(),GetGameView(),GetFixedView(),GetParallaxView());
@@ -170,10 +356,12 @@ void LevelScene::CreatePlayer()
 void LevelScene::CreatePickups()
 {
     const auto windowSize = static_cast<sf::Vector2f>(GetWindow().getSize());
-    const auto pickup1 = Pickup(sf::Vector2f(windowSize.x/2.f,200.f),25.f, 200.f);
-    const auto pickup2 = Pickup(sf::Vector2f(3700,windowSize.y - 125.f),25.f, 200.f);
-    //pickupList.emplace_back(pickup1);
+    auto pickup1 = Pickup(sf::Vector2f(3750,windowSize.y - 125.f),25.f,Game::coinTex);
+    auto pickup2 = Pickup(sf::Vector2f(28850,windowSize.y - 125.f),25.f,Game::coinTex);
+    auto pickup3 = Pickup(sf::Vector2f(37820,windowSize.y/2.f),25.f,Game::coinTex);
+    pickupList.emplace_back(pickup1);
     pickupList.emplace_back(pickup2);
+    pickupList.emplace_back(pickup3);
     for (auto &pick : pickupList)
     {
         pick.SetTarget(GetWindow(),GetGameView(),GetFixedView(),GetParallaxView());

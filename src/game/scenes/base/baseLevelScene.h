@@ -1,10 +1,11 @@
 ﻿#pragma once
 #include "baseScene.h"
 #include "../../Floor/floor.h"
+#include "../../fly portal/flyPortal.h"
 #include "../../obstacles/spike.h"
 #include "../../pickups/pickup.h"
 #include "../../player/player.h"
-#include "../../winPortal/winPortal.h"
+#include "../../win portal/winPortal.h"
 
 
 class BaseLevelScene : public BaseScene
@@ -41,6 +42,9 @@ protected:
     WinPortal* winPortal = nullptr;
     virtual void CreateWinPortal() = 0;
 
+    std::vector<FlyPortal> flyPortalList;
+    virtual void CreateFlyPortal() = 0;
+
     std::function<void()> pauseGame;
     void CreateButtons() override;
     void BindButtons() override;
@@ -55,6 +59,7 @@ private:
     void FloorCheck();
     void BoundsCheck();
     void ObstacleCheck();
+    void FlyCheck() const;
     void WinCheck() const;
 
 private:

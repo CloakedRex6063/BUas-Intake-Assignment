@@ -60,6 +60,10 @@ public:
     static sf::Texture* optionsTex;
     static sf::Texture* tickTex;
     static sf::Texture* unTickTex;
+
+    static sf::Texture* winPortalTex;
+    static sf::Texture* flyPortalTex;
+    static sf::Texture* coinTex;
     
     static sf::Texture* floor1Tex;
     static sf::Texture* floor2Tex;

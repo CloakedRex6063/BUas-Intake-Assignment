@@ -107,7 +107,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)External\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)External\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -146,6 +146,7 @@
     <ClCompile Include="src\engine\ui\sliderBar.cpp" />
     <ClCompile Include="src\engine\ui\text.cpp" />
     <ClCompile Include="src\game\floor\floor.cpp" />
+    <ClCompile Include="src\game\fly portal\flyPortal.cpp" />
     <ClCompile Include="src\game\game.cpp" />
     <ClCompile Include="src\game\obstacles\spike.cpp" />
     <ClCompile Include="src\game\pickups\pickup.cpp" />
@@ -158,7 +159,7 @@
     <ClCompile Include="src\game\scenes\ui\options menu\optionsMenuScene.cpp" />
     <ClCompile Include="src\game\scenes\ui\pause menu\pauseMenuScene.cpp" />
     <ClCompile Include="src\game\scenes\ui\shop menu\shopMenuScene.cpp" />
-    <ClCompile Include="src\game\winPortal\winPortal.cpp" />
+    <ClCompile Include="src\game\win portal\winPortal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\audio manager\audioManager.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="src\engine\ui\sliderBar.h" />
     <ClInclude Include="src\engine\ui\text.h" />
     <ClInclude Include="src\game\floor\floor.h" />
+    <ClInclude Include="src\game\fly portal\flyPortal.h" />
     <ClInclude Include="src\game\game.h" />
     <ClInclude Include="src\game\obstacles\spike.h" />
     <ClInclude Include="src\game\pickups\pickup.h" />
@@ -183,7 +185,7 @@
     <ClInclude Include="src\game\scenes\ui\options menu\optionsMenuScene.h" />
     <ClInclude Include="src\game\scenes\ui\pause menu\pauseMenuScene.h" />
     <ClInclude Include="src\game\scenes\ui\shop menu\shopMenuScene.h" />
-    <ClInclude Include="src\game\winPortal\winPortal.h" />
+    <ClInclude Include="src\game\win portal\winPortal.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -22,7 +22,7 @@ void Player::Init()
 
 void Player::Tick(float deltaTime)
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && bCanJump)
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && (bCanJump || bFly))
     {
         ApplyForce();
     }
@@ -42,7 +42,7 @@ void Player::Render()
 void Player::Move(float deltaTime)
 {
     velocity.x = moveSpeed;
-    velocity.y += bGravity ? gravity : 0.f;
+    velocity.y += bGravity ? (bFly ? gravity/2.f : gravity) : 0.f;
     if(velocity.y > terminalVel)
     {
         velocity.y = terminalVel;
@@ -52,34 +52,41 @@ void Player::Move(float deltaTime)
 
 void Player::Rotate(float fixedDeltaTime)
 {
-    if(!bCanJump)
+    if(!bCanJump && !bFly)
     {
         sprite.rotate(500 * fixedDeltaTime);
     }
     else
     {
-        if (sprite.getRotation() > 45 && sprite.getRotation() < 135.f)
+        if (bFly)
         {
-            sprite.setRotation(90.f);
-        }
-        else if (sprite.getRotation() > 135 && sprite.getRotation() < 225.f)
-        {
-            sprite.setRotation(180.f);
-        }
-        else if (sprite.getRotation() >= 225.0f && sprite.getRotation() < 315.0f)
-        {
-            sprite.setRotation(270.f);
+            sprite.setRotation(0.f);
         }
         else
         {
-            sprite.setRotation(0.f);
+            if (sprite.getRotation() > 45 && sprite.getRotation() < 135.f)
+            {
+                sprite.setRotation(90.f);
+            }
+            else if (sprite.getRotation() > 135 && sprite.getRotation() < 225.f)
+            {
+                sprite.setRotation(180.f);
+            }
+            else if (sprite.getRotation() >= 225.0f && sprite.getRotation() < 315.0f)
+            {
+                sprite.setRotation(270.f);
+            }
+            else
+            {
+                sprite.setRotation(0.f);
+            }
         }
     }
 }
 
 void Player::ApplyForce()
 {
-    velocity.y = jumpForce;
+    velocity.y = bFly ? jumpForce/2.f : jumpForce;
     bCanJump = false;
 }
 

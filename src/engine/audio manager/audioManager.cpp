@@ -30,14 +30,8 @@ void AudioManager::PlayMusic(MusicType music, float delay)
     case LevelMusic_Type:
         playMusic->openFromFile("Assets/Sounds/Music/Level.wav");
         break;
-    }
-    
-    std::thread audioThread ([delay]
-    {
-        std::this_thread::sleep_for(std::chrono::duration<float>(delay));
-        playMusic->play();
-    });
-    audioThread.detach();
+    } 
+    playMusic->play();
 }
 
 void AudioManager::PauseMusic()

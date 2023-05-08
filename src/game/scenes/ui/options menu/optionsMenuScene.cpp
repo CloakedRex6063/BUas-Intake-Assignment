@@ -56,11 +56,17 @@ void OptionsMenuScene::CreateText()
     const auto vsyncText = Text(vsyncPos,GetGame().GetFont(),50,"V-Sync");
     const auto fpsPos = sf::Vector2f(GetWindow().getSize().x /2.f + 300.f,GetWindow().getSize().y/2.f + 50.f);
     const auto fpsText = Text(fpsPos,GetGame().GetFont(),50,"FPS");
+    const auto control1Pos = sf::Vector2f(GetWindow().getSize().x /2.f,GetWindow().getSize().y - 150.f);
+    const auto control1Text = Text(control1Pos,GetGame().GetFont(),50,"Press Space to Jump");
+    const auto control2Pos = sf::Vector2f(GetWindow().getSize().x /2.f,GetWindow().getSize().y - 50.f);
+    const auto control2Text = Text(control2Pos,GetGame().GetFont(),50,"Hold Space to Fly in the fly section");
     textList.emplace_back(mainText);
     textList.emplace_back(sfxText);
     textList.emplace_back(musicText);
     textList.emplace_back(vsyncText);
     textList.emplace_back(fpsText);
+    textList.emplace_back(control1Text);
+    textList.emplace_back(control2Text);
     for (auto &text : textList)
     {
         text.SetTarget(GetWindow(),GetGameView(),GetFixedView(),GetParallaxView());

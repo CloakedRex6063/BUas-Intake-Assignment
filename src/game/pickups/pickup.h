@@ -4,7 +4,7 @@
 class Pickup : public Object
 {
 public:
-    Pickup(sf::Vector2f pos,float radius, float moveSpeed);
+    Pickup(sf::Vector2f pos,float radius,sf::Texture* tex);
     void Init() override;
     void Render() override;
     sf::CircleShape& GetSprite() {return sprite;}
@@ -12,7 +12,6 @@ public:
 
     sf::CircleShape sprite;
     float radius;
-    float rotateSpeed;
     sf::Vector2f pos;
-    sf::Texture tex;
+    sf::Texture* tex;
 };

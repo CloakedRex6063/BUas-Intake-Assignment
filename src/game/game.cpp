@@ -27,6 +27,10 @@ sf::Texture* Game::optionsTex = new sf::Texture();
 sf::Texture* Game::tickTex = new sf::Texture();
 sf::Texture* Game::unTickTex = new sf::Texture();
 
+sf::Texture* Game::winPortalTex = new sf::Texture();
+sf::Texture* Game::flyPortalTex = new sf::Texture();
+sf::Texture* Game::coinTex = new sf::Texture();
+
 sf::Texture* Game::floor1Tex = new sf::Texture();
 sf::Texture* Game::floor2Tex = new sf::Texture();
 
@@ -72,8 +76,11 @@ void Game::LoadSavedVars() const
     auto col = sf::Color::White;
     col.a = b1 ? 100 : 255;
     shopMenu->GetButtonList()[2].SetColor(col);
+    shopMenu->GetButtonList()[2].bLocked = b1;
     shopMenu->GetButtonList()[3].SetColor(col);
+    shopMenu->GetButtonList()[3].bLocked = b2;
     shopMenu->GetButtonList()[4].SetColor(col);
+    shopMenu->GetButtonList()[4].bLocked = b3;
 }
 
 #pragma region Inherited functions
@@ -207,7 +214,7 @@ void Game::CreateLevel()
     GetParallaxView().reset(sf::FloatRect(0,0, windowSize.x,windowSize.y));
     GetGameView().reset(sf::FloatRect(0,0, windowSize.x,windowSize.y));
     
-    delete level;
+    level = nullptr;
     level = new LevelScene();
     level->SetTarget(GetWindow(),GetGameView(),GetFixedView(),GetParallaxView());
     level->SetGame(*this);
@@ -227,9 +234,13 @@ void Game::CreateTextures()
     restartTex->loadFromFile("Assets/Textures/Restart.png");
     backTex->loadFromFile("Assets/Textures/Back.png");
     shopTex->loadFromFile("Assets/Textures/Shop.png");
-    optionsTex->loadFromFile("Assets/Textures/MainMenu.png");
+    optionsTex->loadFromFile("Assets/Textures/Options.png");
     tickTex->loadFromFile("Assets/Textures/Tick.png");
     unTickTex->loadFromFile("Assets/Textures/UnTick.png");
+
+    winPortalTex->loadFromFile("Assets/Textures/WinPortal.png");
+    flyPortalTex->loadFromFile("Assets/Textures/FlyPortal.png");
+    coinTex->loadFromFile("Assets/Textures/Coin.png");
     
     floor1Tex->loadFromFile("Assets/Textures/Floor1.png");
     floor2Tex->loadFromFile("Assets/Textures/Floor2.png");
@@ -283,6 +294,7 @@ void Game::InitText()
 
 void Game::RestartGame()
 {
+    AudioManager::StopMusic();          
     SetAttempts(GetAttempts() + 1);
     CreateLevel();
     ChangeState(Gameplay_State);

@@ -37,7 +37,7 @@ void VictoryScene::BindButtons()
 void VictoryScene::CreateText()
 {
     const auto mainPos = sf::Vector2f(static_cast<float>(GetWindow().getSize().x) /2.f,50.f);
-    const auto mainText = Text(mainPos,GetGame().GetFont(),50,"Game Win");
+    const auto mainText = Text(mainPos,GetGame().GetFont(),50,"You win");
     textList.emplace_back(mainText);
     for (auto &text : textList)
     {
