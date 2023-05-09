@@ -14,6 +14,10 @@ Player::Player(sf::Vector2f pos, sf::Vector2f size, float moveSpeed, float jumpF
 
 void Player::Init()
 {
+    planeSprite.setSize(size);
+    planeSprite.setOrigin(size/2.f);
+    planeSprite.setPosition(pos);
+    planeSprite.setTexture(Game::planeTex);
     sprite.setSize(size);
     sprite.setOrigin(size/2.f);
     sprite.setPosition(pos);
@@ -36,7 +40,7 @@ void Player::PhysicsTick(float fixedDeltaTime)
 
 void Player::Render()
 {
-    GetWindow().draw(sprite);
+    GetWindow().draw(bFly ? planeSprite : sprite);
 }
 
 void Player::Move(float deltaTime)
@@ -48,6 +52,7 @@ void Player::Move(float deltaTime)
         velocity.y = terminalVel;
     }
     sprite.move(velocity * deltaTime);
+    planeSprite.setPosition(sprite.getPosition());
 }
 
 void Player::Rotate(float fixedDeltaTime)
@@ -58,28 +63,21 @@ void Player::Rotate(float fixedDeltaTime)
     }
     else
     {
-        if (bFly)
+        if (sprite.getRotation() > 45 && sprite.getRotation() < 135.f)
         {
-            sprite.setRotation(0.f);
+            sprite.setRotation(90.f);
+        }
+        else if (sprite.getRotation() > 135 && sprite.getRotation() < 225.f)
+        {
+            sprite.setRotation(180.f);
+        }
+        else if (sprite.getRotation() >= 225.0f && sprite.getRotation() < 315.0f)
+        {
+            sprite.setRotation(270.f);
         }
         else
         {
-            if (sprite.getRotation() > 45 && sprite.getRotation() < 135.f)
-            {
-                sprite.setRotation(90.f);
-            }
-            else if (sprite.getRotation() > 135 && sprite.getRotation() < 225.f)
-            {
-                sprite.setRotation(180.f);
-            }
-            else if (sprite.getRotation() >= 225.0f && sprite.getRotation() < 315.0f)
-            {
-                sprite.setRotation(270.f);
-            }
-            else
-            {
-                sprite.setRotation(0.f);
-            }
+            sprite.setRotation(0.f);
         }
     }
 }

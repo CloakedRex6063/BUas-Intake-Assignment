@@ -117,7 +117,8 @@ void BaseLevelScene::CreateText()
     const auto scorePos = sf::Vector2f(GetWindow().getSize().x/2.f + 300.f,50.f);
     const auto scoreText = Text(scorePos,GetGame().GetFont(),50,std::to_string(0.f));
     const auto attemptPos = static_cast<sf::Vector2f>(GetWindow().getSize())/2.f;
-    auto attemptText = Text(attemptPos,GetGame().GetFont(),50,"Attempt " + std::to_string(GetGame().GetAttempts()));
+    auto attemptText = Text(attemptPos,GetGame().GetFont(),50,"Attempt " +
+        std::to_string(GetGame().GetAttempts()));
     attemptText.bFixed = false;
     textList.emplace_back(scoreText);
     textList.emplace_back(attemptText);
@@ -137,6 +138,14 @@ void BaseLevelScene::ViewUpdate()
         GetParallaxView().move(50.f * Main::GetFixedDeltaSeconds(), 0.f);
         GetGameView().move(moveSpeed * Main::GetFixedDeltaSeconds(), 0.f);
     }
+}
+
+void BaseLevelScene::Die()
+{
+    AudioManager::PlaySound(DeathSound_Type);
+    score = 0;
+    bRestarted = true;
+    GetGame().RestartGame();
 }
 
 void BaseLevelScene::CollisionCheck()
@@ -193,9 +202,7 @@ void BaseLevelScene::FloorCheck()
             }
             else
             {
-                score = 0;
-                bRestarted = true;
-                GetGame().RestartGame();
+                Die();
                 return;
             }
         }
@@ -214,9 +221,7 @@ void BaseLevelScene::BoundsCheck()
     {
         if (player->GetCollider().intersects(obs.GetCollider()))
         {
-            score = 0;
-            bRestarted = true;
-            GetGame().RestartGame();
+            Die();
             return;
         }
     }
@@ -226,9 +231,7 @@ void BaseLevelScene::ObstacleCheck()
 {
     if (player->GetSprite().getPosition().y > GetWindow().getSize().y)
     {
-        score = 0;
-        bRestarted = true;
-        GetGame().RestartGame();
+        Die();
     }
 }
 
@@ -273,7 +276,7 @@ void BaseLevelScene::AddFloorLine(const sf::Vector2f& startPos, int numFloors, s
     {
         const auto floorPos = startPos + sf::Vector2f(i * floorGaps.x, i * floorGaps.y);
         const auto floorSize = startSize + sf::Vector2f(i * sizeIncrease.x, i * sizeIncrease.y);
-        const auto floorTexMult = sf::Vector2f(texMultiplier.x * floorSize.x, texMultiplier.y * floorSize.y);
+        const auto floorTexMult = sf::Vector2i(static_cast<int>(texMultiplier.x * floorSize.x), static_cast<int>(texMultiplier.y * floorSize.y));
         auto floor = Floor(floorPos, floorSize, floorTexMult, tex);
         floorList.emplace_back(floor);
     }

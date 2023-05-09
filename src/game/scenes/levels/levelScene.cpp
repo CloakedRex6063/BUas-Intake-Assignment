@@ -302,7 +302,7 @@ void LevelScene::CreateFloor()
     
     for (const auto& data : floorData)
     {
-        sf::Vector2f texMultiplier = sf::Vector2f(data.size.x * data.texSize.x, data.size.y * data.texSize.y);
+        const auto texMultiplier = sf::Vector2i(static_cast<int>(data.size.x * data.texSize.x), static_cast<int>(data.size.y * data.texSize.y));
         auto floor = Floor(data.position, data.size, texMultiplier,Game::floor1Tex);
         floorList.emplace_back(floor);
     }

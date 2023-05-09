@@ -2,33 +2,31 @@
 
 #include <thread>
 
-sf::SoundBuffer* AudioManager::hoverBuffer = nullptr;
-sf::SoundBuffer* AudioManager::clickBuffer = nullptr;
-sf::SoundBuffer* AudioManager::deathBuffer = nullptr;
-sf::Sound* AudioManager::playSound = nullptr;
-sf::Music* AudioManager::playMusic = nullptr;
+sf::SoundBuffer* AudioManager::hoverBuffer = new sf::SoundBuffer();
+sf::SoundBuffer* AudioManager::clickBuffer = new sf::SoundBuffer();
+sf::SoundBuffer* AudioManager::deathBuffer = new sf::SoundBuffer();
+sf::Sound* AudioManager::playSound = new sf::Sound();
+sf::Music* AudioManager::playMusic = new sf::Music();
 
 void AudioManager::Init()
 {
     hoverBuffer = new sf::SoundBuffer();
-    hoverBuffer->loadFromFile("Assets/Sounds/SFX/MouseHover.wav");
+    hoverBuffer->loadFromFile("Assets/Sounds/SFX/MouseHover.ogg");
     clickBuffer = new sf::SoundBuffer();
-    clickBuffer->loadFromFile("Assets/Sounds/SFX/MouseClick.wav");
-    //deathBuffer = new sf::SoundBuffer();
-    //deathBuffer->loadFromFile("Assets/Sounds/SFX/Death.wav");
-    playSound = new sf::Sound();
-    playMusic = new sf::Music();
+    clickBuffer->loadFromFile("Assets/Sounds/SFX/MouseClick.ogg");
+    deathBuffer = new sf::SoundBuffer();
+    deathBuffer->loadFromFile("Assets/Sounds/SFX/Death.ogg");
 }
 
-void AudioManager::PlayMusic(MusicType music, float delay)
+void AudioManager::PlayMusic(MusicType music)
 {
     switch (music)
     {
     case MenuMusic_Type:
-        playMusic->openFromFile("Assets/Sounds/Music/Menu.wav");
+        playMusic->openFromFile("Assets/Sounds/Music/Menu.ogg");
         break;
     case LevelMusic_Type:
-        playMusic->openFromFile("Assets/Sounds/Music/Level.wav");
+        playMusic->openFromFile("Assets/Sounds/Music/Level.ogg");
         break;
     } 
     playMusic->play();
@@ -62,6 +60,8 @@ void AudioManager::PlaySound(SoundType sound)
         playSound->play();
         break;
     case DeathSound_Type:
+        playSound->setBuffer(*deathBuffer);
+        playSound->play();
         break;
     }
 }

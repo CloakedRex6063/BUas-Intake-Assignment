@@ -3,6 +3,8 @@
 #include "../../engine/enums/enums.h"
 
 
+class Game;
+
 class Player final : public Object
 {
 public:
@@ -11,32 +13,31 @@ public:
     void Tick(float deltaTime) override;
     void PhysicsTick(float fixedDeltaTime) override;
     void Render() override;
-    
-    bool bGravity = false;
-    bool bCanJump = true;
-    bool bFly = false;
-    float terminalVel = 1000.f;
 
-    sf::RectangleShape& GetSprite() {return sprite;}
-    sf::FloatRect GetCollider() const { return sprite.getGlobalBounds();}
-    
+
 private:
-    /*
-     * Sprite Properties
-     */
-    
     sf::RectangleShape sprite;
+    sf::RectangleShape planeSprite;
     sf::Vector2f size;
     sf::Vector2f pos;
 
-    /*
-     * Movement
-     */
+public:
+    sf::RectangleShape& GetSprite() {return sprite;}
+    sf::FloatRect GetCollider() const { return sprite.getGlobalBounds();}
+
+private:
     float moveSpeed;
     float jumpForce;
     float gravity;
     sf::Vector2f velocity;
+    float terminalVel = 1000.f;
 
+public:
+    bool bGravity = false;
+    bool bCanJump = true;
+    bool bFly = false;
+
+private:
     void Move(float fixedDeltaTime);
     void Rotate(float fixedDeltaTime);
     void ApplyForce();

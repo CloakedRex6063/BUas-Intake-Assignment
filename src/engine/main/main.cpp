@@ -1,5 +1,4 @@
 #include "main.h"
-#include <iostream>
 
 #include "../audio manager/audioManager.h"
 #include "../../game/game.h"
@@ -20,16 +19,16 @@ void Main::CreateWindow()
 {
     videoMode = sf::VideoMode(1600,800);
     window.create(videoMode, title, sf::Style::Close);
+    auto windowIcon = sf::Image();
+    windowIcon.loadFromFile("Assets/Textures/Player1.png");
+    window.setIcon(100,100,windowIcon.getPixelsPtr());
     const auto windowSize = sf::Vector2f(window.getSize());
     gameView = sf::View(sf::FloatRect(0,0, windowSize.x,windowSize.y));
     fixedView = sf::View(sf::FloatRect(0,0, windowSize.x,windowSize.y));
     parallaxView = sf::View(sf::FloatRect(0,0, windowSize.x,windowSize.y));
     game.SetTarget(window,gameView,fixedView,parallaxView);
     game.Init();
-    if(!bgTex.loadFromFile("Assets/Textures/ParallaxBG.png"))
-    {
-        std::cout << "Failed to load Assets/Textures/ParallaxBG.png";
-    }
+    bgTex.loadFromFile("Assets/Textures/ParallaxBG.png");
     bgSprite.setTexture(bgTex);
 }
 

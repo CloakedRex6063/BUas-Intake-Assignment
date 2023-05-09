@@ -16,6 +16,7 @@ sf::Texture* Game::player1Tex = new sf::Texture();
 sf::Texture* Game::player2Tex = new sf::Texture();
 sf::Texture* Game::player3Tex = new sf::Texture();
 sf::Texture* Game::player4Tex = new sf::Texture();
+sf::Texture* Game::planeTex = new sf::Texture();
 
 sf::Texture* Game::playTex = new sf::Texture();
 sf::Texture* Game::pauseTex = new sf::Texture();
@@ -119,7 +120,8 @@ void Game::Tick(float deltaTime)
         break;
     case Restart_State: break;
     }
-    fpsText->SetText(bShowFPS ? std::to_string(Main::GetFPS()) : "");
+    const auto fpsString = "FPS:" + std::to_string(Main::GetFPS());
+    fpsText->SetText(bShowFPS ? fpsString : "");
     fpsText->Tick(deltaTime);
 }
 
@@ -227,6 +229,7 @@ void Game::CreateTextures()
     player2Tex->loadFromFile("Assets/Textures/Player2.png");
     player3Tex->loadFromFile("Assets/Textures/Player3.png");
     player4Tex->loadFromFile("Assets/Textures/Player4.png");
+    planeTex->loadFromFile("Assets/Textures/Plane.png");
     
     playTex->loadFromFile("Assets/Textures/PlayButton.png");
     pauseTex->loadFromFile("Assets/Textures/PauseButton.png");
@@ -256,7 +259,7 @@ void Game::ChangeState(GameStates newState)
         if(currentGameState != Options_State && currentGameState != Shop_State)
         {
             AudioManager::StopMusic();
-            AudioManager::PlayMusic(MenuMusic_Type,0);
+            AudioManager::PlayMusic(MenuMusic_Type);
         }
         break;
     case Gameplay_State:
@@ -266,7 +269,7 @@ void Game::ChangeState(GameStates newState)
         }
         else
         {
-            AudioManager::PlayMusic(LevelMusic_Type,1.f);
+            AudioManager::PlayMusic(LevelMusic_Type);
         }
         break;
     case Pause_State:
@@ -294,7 +297,7 @@ void Game::InitText()
 
 void Game::RestartGame()
 {
-    AudioManager::StopMusic();          
+    AudioManager::StopMusic();
     SetAttempts(GetAttempts() + 1);
     CreateLevel();
     ChangeState(Gameplay_State);

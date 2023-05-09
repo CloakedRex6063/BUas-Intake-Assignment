@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-Floor::Floor(sf::Vector2f pos, sf::Vector2f size, sf::Vector2f texMultiplier, sf::Texture* tex)
+Floor::Floor(sf::Vector2f pos, sf::Vector2f size, sf::Vector2i texMultiplier, sf::Texture* tex)
 {
     this->pos = pos;
     this->size = size;

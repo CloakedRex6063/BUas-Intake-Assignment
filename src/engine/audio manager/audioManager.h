@@ -6,7 +6,7 @@ class AudioManager final
 {
 public:
     static void Init();
-    static void PlayMusic(MusicType music, float delay);
+    static void PlayMusic(MusicType music);
     static void PauseMusic();
     static void ResumeMusic();
     static void StopMusic();

@@ -53,7 +53,8 @@ protected:
 
 private:
     void ViewUpdate();
-    
+
+    void Die();
     void CollisionCheck();
     void PickupCheck();
     void FloorCheck();
@@ -61,8 +62,7 @@ private:
     void ObstacleCheck();
     void FlyCheck() const;
     void WinCheck() const;
-
-private:
+    
     bool bRestarted = false;
 
 protected:

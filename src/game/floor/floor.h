@@ -5,9 +5,9 @@ class Floor : public Object
 {
 public:
     Floor() = default;
-    Floor(sf::Vector2f pos, sf::Vector2f size, sf::Vector2f texMultiplier, sf::Texture* tex);
+    Floor(sf::Vector2f pos, sf::Vector2f size, sf::Vector2i texMultiplier, sf::Texture* tex);
     sf::Vector2f size;
-    sf::Vector2f texMultiplier;
+    sf::Vector2i texMultiplier;
     sf::Vector2f pos;
     sf::Texture* tex{};
     sf::RectangleShape sprite;

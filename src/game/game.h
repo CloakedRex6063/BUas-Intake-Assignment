@@ -50,6 +50,7 @@ public:
     static sf::Texture* player2Tex;
     static sf::Texture* player3Tex;
     static sf::Texture* player4Tex;
+    static sf::Texture* planeTex;
     
     static sf::Texture* playTex;
     static sf::Texture* pauseTex;

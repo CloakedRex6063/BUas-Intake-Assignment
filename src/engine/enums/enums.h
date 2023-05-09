@@ -16,7 +16,7 @@ enum PlayerTex
     Tex1_Type,
     Tex2_Type,
     Tex3_Type,
-    Tex4_Type
+    Tex4_Type,
 };
 
 enum MusicType
