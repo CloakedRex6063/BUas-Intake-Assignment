@@ -1,5 +1,7 @@
 #include "flyPortal.h"
 
+#pragma region Required
+
 FlyPortal::FlyPortal(sf::Vector2f pos, sf::Vector2f size, bool bFly, sf::Texture* tex)
 {
     this->tex = tex;
@@ -18,5 +20,7 @@ void FlyPortal::Init()
 
 void FlyPortal::Render()
 {
-    GetWindow().draw(sprite);
+    GetWindow()->draw(sprite);
 }
+
+#pragma endregion 

@@ -1,25 +1,38 @@
 ﻿#pragma once
-#include <SFML/Graphics/Text.hpp>
 
+#include <SFML/Graphics/Text.hpp>
 #include "../../engine/object.h"
 
-class Text : public Object
+class Text final : public Object
 {
+    
+#pragma region Required
 public:
+    Text(const sf::Vector2f& pos, const sf::Font& font, int size, const std::string& newText, const sf::Color& textColor = sf::Color::White);
     void Init() override;
     void Render() override;
 
     bool bFixed = true;
-    Text(const sf::Vector2f& pos, const sf::Font& font, unsigned size, const std::string& newText, const sf::Color& textColor = sf::Color::White);
-    void SetText(const std::string& newText);
-    sf::Text GetText() {return text;}
+
+#pragma endregion
+
+#pragma region TextProperties
     
 private:
-    sf::Text text;
     sf::CircleShape shape;
+    
     std::string newText;
     sf::Font font;
+    sf::Text text;
+    
     sf::Vector2f pos;
+    int size;
     sf::Color textColor;
-    unsigned size;
+    
+public:
+    void SetText(const std::string& newText);
+    sf::Text GetText() {return text;}
+
+#pragma endregion
+    
 };

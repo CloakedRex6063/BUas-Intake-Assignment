@@ -1,6 +1,6 @@
 ﻿#include "floor.h"
 
-#include <iostream>
+#pragma region Required
 
 Floor::Floor(sf::Vector2f pos, sf::Vector2f size, sf::Vector2i texMultiplier, sf::Texture* tex)
 {
@@ -22,8 +22,10 @@ void Floor::Init()
 
 void Floor::Render()
 {
-    GetWindow().draw(sprite);
+    GetWindow()->draw(sprite);
 }
+
+#pragma endregion 
 
 
 

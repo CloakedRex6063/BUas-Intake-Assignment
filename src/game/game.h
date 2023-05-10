@@ -1,7 +1,9 @@
 ﻿#pragma once
+
 #include "../engine/object.h"
 #include "../engine/enums/enums.h"
 #include "../engine/ui/text.h"
+#include "checkpoint/checkPoint.h"
 
 class Player;
 class PauseMenuScene;
@@ -14,14 +16,25 @@ class LevelScene;
 
 class Game final : public Object
 {
-private:
+    
+#pragma region Required
+
+#pragma region Save
+    
     void LoadSavedVars() const;
+    void LoadSettings() const;
+    void LoadData() const;
+    void LoadButtonState() const;
+
+#pragma endregion 
     
 public:
     void Init() override;
     void Tick(float deltaTime) override;
     void PhysicsTick(float fixedDeltaTime) override;
     void Render() override;
+
+#pragma endregion  
 
 #pragma region Scenes
     
@@ -39,11 +52,17 @@ public:
     void CreateLevel();
 
 #pragma endregion 
+
+#pragma region Background
+    
+    sf::Sprite bgSprite;
+    
+#pragma endregion 
     
 #pragma region Textures
 
 private:
-    static void CreateTextures();
+    void CreateTextures() const;
 
 public:
     static sf::Texture* player1Tex;
@@ -52,22 +71,25 @@ public:
     static sf::Texture* player4Tex;
     static sf::Texture* planeTex;
     
-    static sf::Texture* playTex;
-    static sf::Texture* pauseTex;
-    static sf::Texture* menuTex;
-    static sf::Texture* restartTex;
-    static sf::Texture* backTex;
-    static sf::Texture* shopTex;
-    static sf::Texture* optionsTex;
-    static sf::Texture* tickTex;
-    static sf::Texture* unTickTex;
+    sf::Texture* playTex = new sf::Texture();
+    sf::Texture* pauseTex = new sf::Texture();
+    sf::Texture* menuTex = new sf::Texture();
+    sf::Texture* restartTex = new sf::Texture();
+    sf::Texture* backTex = new sf::Texture();
+    sf::Texture* shopTex = new sf::Texture();
+    sf::Texture* optionsTex = new sf::Texture();
+    sf::Texture* tickTex = new sf::Texture();
+    sf::Texture* unTickTex = new sf::Texture();
 
-    static sf::Texture* winPortalTex;
-    static sf::Texture* flyPortalTex;
-    static sf::Texture* coinTex;
+    sf::Texture* winPortalTex = new sf::Texture();
+    sf::Texture* flyPortalTex = new sf::Texture();
+    sf::Texture* coinTex = new sf::Texture();
+    sf::Texture* checkPointTex = new sf::Texture();
     
-    static sf::Texture* floor1Tex;
-    static sf::Texture* floor2Tex;
+    sf::Texture* floor1Tex = new sf::Texture();
+    sf::Texture* floor2Tex = new sf::Texture();
+    
+    sf::Texture* bgTex = new sf::Texture();
 
 #pragma endregion 
 
@@ -128,12 +150,16 @@ private:
 public:
     int GetAttempts() const {return attempts;}
     void SetAttempts(int newAttempts) {attempts = newAttempts;}
+
+    CheckPoint* currentCheckPoint = nullptr;
     
 #pragma endregion
 
-public:
+#pragma region Restart
+    
     void RestartGame();
     
-    static sf::Color colors[4];
+#pragma endregion 
+    
 };
 

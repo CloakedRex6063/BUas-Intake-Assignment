@@ -140,11 +140,11 @@
   <ItemGroup>
     <ClCompile Include="src\engine\audio manager\audioManager.cpp" />
     <ClCompile Include="src\engine\main\main.cpp" />
-    <ClCompile Include="src\engine\object.cpp" />
     <ClCompile Include="src\engine\save file\saveFile.cpp" />
     <ClCompile Include="src\engine\ui\button.cpp" />
     <ClCompile Include="src\engine\ui\sliderBar.cpp" />
     <ClCompile Include="src\engine\ui\text.cpp" />
+    <ClCompile Include="src\game\checkpoint\checkPoint.cpp" />
     <ClCompile Include="src\game\floor\floor.cpp" />
     <ClCompile Include="src\game\fly portal\flyPortal.cpp" />
     <ClCompile Include="src\game\game.cpp" />
@@ -171,6 +171,7 @@
     <ClInclude Include="src\engine\ui\button.h" />
     <ClInclude Include="src\engine\ui\sliderBar.h" />
     <ClInclude Include="src\engine\ui\text.h" />
+    <ClInclude Include="src\game\checkpoint\checkPoint.h" />
     <ClInclude Include="src\game\floor\floor.h" />
     <ClInclude Include="src\game\fly portal\flyPortal.h" />
     <ClInclude Include="src\game\game.h" />

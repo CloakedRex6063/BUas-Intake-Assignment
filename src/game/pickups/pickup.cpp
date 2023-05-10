@@ -1,6 +1,6 @@
 ﻿#include "pickup.h"
 
-#include <iostream>
+#pragma region Required
 
 Pickup::Pickup(sf::Vector2f pos, float radius, sf::Texture* tex)
 {
@@ -19,7 +19,9 @@ void Pickup::Init()
 
 void Pickup::Render()
 {
-    GetWindow().draw(sprite);
+    GetWindow()->draw(sprite);
 }
+
+#pragma endregion 
 
 

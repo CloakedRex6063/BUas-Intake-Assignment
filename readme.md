@@ -10,12 +10,11 @@ fast-paced platformers.
 
 Credits:
 
+Font: Roboto - Google Android Design, DaFont.com
+
 Level Music: Climbing Through Air 2 - Tomas Skyldeberg, Epidemic Sound
-
-Menu Music: Energetic Indie Rock Upbeat - OYStudio, Pixabay
-
-Death Sounds: Videogame Death Sound - Fupicat, Pixabay
-
+Menu Music: Energetic Indie Rock Upbeat - OYStudio, Pixabay.com
+Death Sounds: Videogame Death Sound - Fupicat, Pixabay.com
 Menu Sounds: Fantasy UI Sound Effects - Atelier Magicae, Itch.io
 
 Library used: SFML 2.5.1

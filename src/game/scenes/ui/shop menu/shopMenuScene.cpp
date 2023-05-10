@@ -3,13 +3,14 @@
 #include "../../../../engine/save file/saveFile.h"
 #include "../../../player/player.h"
 
+#pragma region Required
+
 void ShopMenuScene::Init()
 {
     BaseScene::Init();
     sprite.setSize(sf::Vector2f(200.f,200.f));
     sprite.setOrigin(sprite.getSize()/2.f);
-    sprite.setPosition(GetWindow().getSize().x/2.f, 300.f);
-    sprite.setTexture(Player::GetTex());
+    sprite.setPosition(GetWindow()->getSize().x/2.f, 300.f);
 }
 
 void ShopMenuScene::Tick(float deltaTime)
@@ -22,21 +23,28 @@ void ShopMenuScene::Tick(float deltaTime)
 void ShopMenuScene::Render()
 {
     BaseScene::Render();
-    GetWindow().draw(sprite);
+    GetWindow()->draw(sprite);
 }
+
+#pragma endregion
+
+#pragma region UI
+
+#pragma region Buttons
 
 void ShopMenuScene::CreateButtons()
 {
-    const auto backPos = sf::Vector2f(100.f,GetWindow().getSize().y - 100.f);
-    const auto backBut = Button(backPos,sf::Vector2f(100.f,100.f),5.f,Game::backTex);
+    const auto windowSize = sf::Vector2f(GetWindow()->getSize());
+    const auto backPos = sf::Vector2f(100.f,windowSize.y - 100.f);
+    const auto backBut = Button(backPos,sf::Vector2f(100.f,100.f),5.f,GetGame().backTex);
 
-    const auto type1Pos = sf::Vector2f(GetWindow().getSize().x/2.f - 450.f,GetWindow().getSize().y/2.f + 100.f);
+    const auto type1Pos = sf::Vector2f(windowSize.x/2.f - 450.f,windowSize.y/2.f + 100.f);
     const auto type1But = Button(type1Pos,sf::Vector2f(100.f,100.f),5.f,Game::player1Tex);
-    const auto type2Pos = sf::Vector2f(GetWindow().getSize().x/2.f - 150.f,GetWindow().getSize().y/2.f + 100.f);
+    const auto type2Pos = sf::Vector2f(windowSize.x/2.f - 150.f,windowSize.y/2.f + 100.f);
     const auto type2But = Button(type2Pos,sf::Vector2f(100.f,100.f),5.f,Game::player2Tex);
-    const auto type3Pos = sf::Vector2f(GetWindow().getSize().x/2.f + 150.f,GetWindow().getSize().y/2.f + 100.f);
+    const auto type3Pos = sf::Vector2f(windowSize.x/2.f + 150.f,windowSize.y/2.f + 100.f);
     const auto type3But = Button(type3Pos,sf::Vector2f(100.f,100.f),5.f,Game::player3Tex);
-    const auto type4Pos = sf::Vector2f(GetWindow().getSize().x/2.f + 450.f,GetWindow().getSize().y/2.f + 100.f);
+    const auto type4Pos = sf::Vector2f(windowSize.x/2.f + 450.f,windowSize.y/2.f + 100.f);
     const auto type4But = Button(type4Pos,sf::Vector2f(100.f,100.f),5.f,Game::player4Tex);
     
     buttonList.emplace_back(backBut);
@@ -44,12 +52,6 @@ void ShopMenuScene::CreateButtons()
     buttonList.emplace_back(type2But);
     buttonList.emplace_back(type3But);
     buttonList.emplace_back(type4But);
-    
-    for (auto &but : buttonList)
-    {
-        but.SetTarget(GetWindow(),GetGameView(),GetFixedView(),GetParallaxView());
-        but.Init();
-    }
 }
 
 void ShopMenuScene::BindButtons()
@@ -114,17 +116,21 @@ void ShopMenuScene::BindButtons()
     buttonList[4].onButtonPressed = type4;
 }
 
+#pragma endregion
+
+#pragma region Text
+
 void ShopMenuScene::CreateText()
 {
-    const auto shopPos = sf::Vector2f(static_cast<float>(GetWindow().getSize().x) /2.f,50.f);
+    const auto windowSize = sf::Vector2f(GetWindow()->getSize());
+    const auto shopPos = sf::Vector2f(static_cast<float>(windowSize.x) /2.f,50.f);
     const auto shopText = Text(shopPos,GetGame().GetFont(),50,"Shop");
-    const auto coinPos = sf::Vector2f(static_cast<float>(GetWindow().getSize().x) - 100.f,50.f);
+    const auto coinPos = sf::Vector2f(static_cast<float>(windowSize.x) - 100.f,50.f);
     auto coinText = Text(coinPos,GetGame().GetFont(),50,"Coins:0");
     textList.emplace_back(shopText);
     textList.emplace_back(coinText);
-    for (auto &text : textList)
-    {
-        text.SetTarget(GetWindow(),GetGameView(),GetFixedView(),GetParallaxView());
-        text.Init();
-    }
 }
+
+#pragma endregion
+
+#pragma endregion 

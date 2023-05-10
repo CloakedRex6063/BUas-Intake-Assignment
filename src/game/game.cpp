@@ -1,5 +1,4 @@
 ﻿#include "game.h"
-#include <iostream>
 #include "../engine/audio manager/audioManager.h"
 #include "../engine/main/main.h"
 #include "../engine/save file/saveFile.h"
@@ -10,7 +9,7 @@
 #include "scenes/ui/shop menu/shopMenuScene.h"
 #include "scenes/levels/levelScene.h"
 
-#pragma region Textures Initialisation
+#pragma region Static Initialisation
 
 sf::Texture* Game::player1Tex = new sf::Texture();
 sf::Texture* Game::player2Tex = new sf::Texture();
@@ -18,33 +17,25 @@ sf::Texture* Game::player3Tex = new sf::Texture();
 sf::Texture* Game::player4Tex = new sf::Texture();
 sf::Texture* Game::planeTex = new sf::Texture();
 
-sf::Texture* Game::playTex = new sf::Texture();
-sf::Texture* Game::pauseTex = new sf::Texture();
-sf::Texture* Game::menuTex = new sf::Texture();
-sf::Texture* Game::restartTex = new sf::Texture();
-sf::Texture* Game::backTex = new sf::Texture();
-sf::Texture* Game::shopTex = new sf::Texture();
-sf::Texture* Game::optionsTex = new sf::Texture();
-sf::Texture* Game::tickTex = new sf::Texture();
-sf::Texture* Game::unTickTex = new sf::Texture();
-
-sf::Texture* Game::winPortalTex = new sf::Texture();
-sf::Texture* Game::flyPortalTex = new sf::Texture();
-sf::Texture* Game::coinTex = new sf::Texture();
-
-sf::Texture* Game::floor1Tex = new sf::Texture();
-sf::Texture* Game::floor2Tex = new sf::Texture();
-
-#pragma endregion 
-
 bool Game::bShowFPS = false;
 
 int Game::coins = 0;
 int Game::usedCoins = 0;
 
-sf::Color Game::colors[4] = {sf::Color::Yellow, sf::Color::Cyan, sf::Color::Green, sf::Color::Magenta}; 
+#pragma endregion 
+
+#pragma region Required
+
+#pragma region Save
 
 void Game::LoadSavedVars() const
+{
+    LoadSettings();
+    LoadData();
+    LoadButtonState();
+}
+
+void Game::LoadSettings() const
 {
     float soundVolume;
     float musicVolume;
@@ -59,17 +50,23 @@ void Game::LoadSavedVars() const
     optionsMenu->GetSliderList()[1].SetSliderValue(AudioManager::GetMusicVolume());
 
     Main::SetVsync(bVsync);
-    GetWindow().setVerticalSyncEnabled(bVsync);
+    GetWindow()->setVerticalSyncEnabled(bVsync);
     optionsMenu->GetButtonList()[1].SetTexture(bVsync ? tickTex : unTickTex);
 
     SetShowFPS(bFps);
     optionsMenu->GetButtonList()[2].SetTexture(bFps ? tickTex : unTickTex);
+}
 
+void Game::LoadData() const
+{
     int playerTex;
     SaveFile::LoadData(coins,usedCoins, playerTex);
     Player::SetTex(static_cast<PlayerTex>(playerTex));
     shopMenu->GetSprite().setTexture(Player::GetTex());
+}
 
+void Game::LoadButtonState() const
+{
     bool b1;
     bool b2;
     bool b3;
@@ -84,12 +81,13 @@ void Game::LoadSavedVars() const
     shopMenu->GetButtonList()[4].bLocked = b3;
 }
 
-#pragma region Inherited functions
+#pragma endregion 
 
 void Game::Init()
 {
     InitText();
     CreateTextures();
+    bgSprite.setTexture(*bgTex);
     CreateBaseScenes();
     AudioManager::Init();
     ChangeState(MainMenu_State);
@@ -154,6 +152,8 @@ void Game::PhysicsTick(float fixedDeltaTime)
 
 void Game::Render()
 {
+    GetWindow()->setView(*GetParallaxView());
+    GetWindow()->draw(bgSprite);
     switch (currentGameState)
     {
     case MainMenu_State:
@@ -176,11 +176,13 @@ void Game::Render()
         break;
     case Restart_State: break;
     }
-    GetWindow().setView(GetFixedView());
+    GetWindow()->setView(*GetFixedView());
     fpsText->Render();
 }
 
 #pragma endregion
+
+#pragma region Scenes
 
 void Game::CreateBaseScenes()
 {
@@ -212,9 +214,9 @@ void Game::CreateBaseScenes()
 
 void Game::CreateLevel()
 {
-    const auto windowSize = sf::Vector2f(GetWindow().getSize());
-    GetParallaxView().reset(sf::FloatRect(0,0, windowSize.x,windowSize.y));
-    GetGameView().reset(sf::FloatRect(0,0, windowSize.x,windowSize.y));
+    const auto windowSize = sf::Vector2f(GetWindow()->getSize());
+    GetParallaxView()->reset(sf::FloatRect(0,0, windowSize.x,windowSize.y));
+    GetGameView()->reset(sf::FloatRect(0,0, windowSize.x,windowSize.y));
     
     level = nullptr;
     level = new LevelScene();
@@ -223,7 +225,11 @@ void Game::CreateLevel()
     level->Init();
 }
 
-void Game::CreateTextures()
+#pragma endregion
+
+#pragma region Textures
+
+void Game::CreateTextures() const
 {
     player1Tex->loadFromFile("Assets/Textures/Player1.png");
     player2Tex->loadFromFile("Assets/Textures/Player2.png");
@@ -244,12 +250,17 @@ void Game::CreateTextures()
     winPortalTex->loadFromFile("Assets/Textures/WinPortal.png");
     flyPortalTex->loadFromFile("Assets/Textures/FlyPortal.png");
     coinTex->loadFromFile("Assets/Textures/Coin.png");
+    checkPointTex->loadFromFile("Assets/Textures/Checkpoint.png");
     
     floor1Tex->loadFromFile("Assets/Textures/Floor1.png");
     floor2Tex->loadFromFile("Assets/Textures/Floor2.png");
+
+    bgTex->loadFromFile("Assets/Textures/ParallaxBG.png");
 }
 
-#pragma region Helper
+#pragma endregion 
+
+#pragma region GameStates
 
 void Game::ChangeState(GameStates newState)
 {
@@ -285,15 +296,23 @@ void Game::ChangeState(GameStates newState)
     currentGameState = newState;
 }
 
+#pragma endregion 
+
+#pragma region Text
+
 void Game::InitText()
 {
-    font.loadFromFile("Assets/Fonts/Cherry.ttf");
+    font.loadFromFile("Assets/Fonts/Roboto.ttf");
     SetFont(font);
     const auto fpsPos = sf::Vector2f(25.f,0.f);
     fpsText = new Text(fpsPos,GetFont(),50," ");
     fpsText->Init();
     fpsText->SetTarget(GetWindow(),GetGameView(),GetFixedView(),GetParallaxView());
 }
+
+#pragma endregion 
+
+#pragma region RestartGame
 
 void Game::RestartGame()
 {

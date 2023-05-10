@@ -1,7 +1,13 @@
 ﻿#include "player.h"
 #include "../game.h"
 
-sf::Texture* Player::tex = nullptr;
+#pragma region Static Initialisation
+
+sf::Texture* Player::tex = new sf::Texture();
+
+#pragma endregion 
+
+#pragma region Required
 
 Player::Player(sf::Vector2f pos, sf::Vector2f size, float moveSpeed, float jumpForce, float gravity)
 {
@@ -40,8 +46,56 @@ void Player::PhysicsTick(float fixedDeltaTime)
 
 void Player::Render()
 {
-    GetWindow().draw(bFly ? planeSprite : sprite);
+    GetWindow()->draw(bFly ? planeSprite : sprite);
 }
+
+#pragma endregion
+
+#pragma region SpriteProperties
+
+int Player::GetTexIndex()
+{
+    if (tex == Game::player1Tex)
+    {
+        return 0;
+    }
+    if (tex == Game::player2Tex)
+    {
+        return 1;
+    }
+    if (tex == Game::player3Tex)
+    {
+        return 2;
+    }
+    if (tex == Game::player4Tex)
+    {
+        return 3;
+    }
+    return 0;
+}
+
+void Player::SetTex(PlayerTex newTex)
+{
+    switch (newTex)
+    {
+    case Tex1_Type:
+        tex = Game::player1Tex;
+        break;
+    case Tex2_Type:
+        tex = Game::player2Tex;
+        break;
+    case Tex3_Type:
+        tex = Game::player3Tex;
+        break;
+    case Tex4_Type:
+        tex = Game::player4Tex;
+        break;
+    }
+}
+
+#pragma endregion 
+
+#pragma region Movement
 
 void Player::Move(float deltaTime)
 {
@@ -88,44 +142,6 @@ void Player::ApplyForce()
     bCanJump = false;
 }
 
-int Player::GetTexIndex()
-{
-    if (tex == Game::player1Tex)
-    {
-        return 0;
-    }
-    if (tex == Game::player2Tex)
-    {
-        return 1;
-    }
-    if (tex == Game::player3Tex)
-    {
-        return 2;
-    }
-    if (tex == Game::player4Tex)
-    {
-        return 3;
-    }
-    return 0;
-}
-
-void Player::SetTex(PlayerTex newTex)
-{
-    switch (newTex)
-    {
-    case Tex1_Type:
-        tex = Game::player1Tex;
-        break;
-    case Tex2_Type:
-        tex = Game::player2Tex;
-        break;
-    case Tex3_Type:
-        tex = Game::player3Tex;
-        break;
-    case Tex4_Type:
-        tex = Game::player4Tex;
-        break;
-    }
-}
+#pragma endregion 
 
 

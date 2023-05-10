@@ -1,6 +1,6 @@
 ﻿#include "sliderBar.h"
 
-#include <iostream>
+#pragma region Required
 
 SliderBar::SliderBar(sf::Vector2f pos, sf::Vector2f size, float outThickness)
 {
@@ -22,9 +22,9 @@ void SliderBar::Init()
 
 void SliderBar::Tick(float deltaTime)
 {
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && bAdjustable)
     {
-        const auto mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(GetWindow()));
+        const auto mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*GetWindow()));
         if(outlineBar.getGlobalBounds().contains(mousePos))
         {
             auto value = std::min((mousePos.x - outlineBar.getPosition().x) / outlineBar.getSize().x,1.f);
@@ -39,12 +39,21 @@ void SliderBar::Tick(float deltaTime)
 
 void SliderBar::Render()
 {
-    GetWindow().draw(outlineBar);
-    GetWindow().draw(fillBar);
+    GetWindow()->draw(outlineBar);
+    GetWindow()->draw(fillBar);
 }
+
+#pragma endregion
+
+#pragma region SliderProperties
 
 void SliderBar::SetSliderValue(float newValue)
 {
     fillBar.setSize(sf::Vector2f(newValue * size.x,size.y));
-    onValueChanged(newValue);
+    if (bAdjustable)
+    {
+        onValueChanged(newValue);
+    }
 }
+
+#pragma endregion  

@@ -1,15 +1,15 @@
-﻿#include "winPortal.h"
+#include "checkPoint.h"
 
 #pragma region Required
 
-WinPortal::WinPortal(sf::Vector2f pos, sf::Vector2f size, sf::Texture* tex)
+CheckPoint::CheckPoint(sf::Vector2f pos, sf::Vector2f size, sf::Texture* tex)
 {
     this->tex = tex;
     this->pos = pos;
     this->size = size;
 }
 
-void WinPortal::Init()
+void CheckPoint::Init()
 {
     sprite.setSize(size);
     sprite.setOrigin(size/2.f);
@@ -17,10 +17,9 @@ void WinPortal::Init()
     sprite.setTexture(tex);
 }
 
-void WinPortal::Render()
+void CheckPoint::Render()
 {
     GetWindow()->draw(sprite);
 }
 
 #pragma endregion 
-

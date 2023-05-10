@@ -2,9 +2,15 @@
 #include <fstream>
 #include <iostream>
 
+#pragma region Static Initialisation
+
 std::string SaveFile::settingsFileName = "settings.txt";
 std::string SaveFile::dataFileName = "data.txt";
 std::string SaveFile::buttonStateFileName = "buttonState.txt";
+
+#pragma endregion
+
+#pragma region Settings
 
 void SaveFile::SaveSettings(float soundVolume, float musicVolume, bool bVsync, bool bFps)
 {
@@ -37,6 +43,10 @@ void SaveFile::LoadSettings(float& soundVolume, float& musicVolume, bool& bVsync
     }
 }
 
+#pragma endregion
+
+#pragma region SaveData
+
 void SaveFile::SaveData(int coins, int usedCoins, int tex)
 {
     std::ofstream outFile;
@@ -66,6 +76,10 @@ void SaveFile::LoadData(int& coins, int& usedCoins, int& tex)
     }
 }
 
+#pragma endregion
+
+#pragma region ButtonState
+
 void SaveFile::SaveButtonState(bool b1, int b2, int b3)
 {
     std::ofstream outFile;
@@ -94,3 +108,5 @@ void SaveFile::LoadButtonState(bool& b1, bool& b2, bool& b3)
         inFile.close();
     }
 }
+
+#pragma endregion 

@@ -1,6 +1,6 @@
 ﻿#include "spike.h"
 
-#include <iostream>
+#pragma region Required
 
 Spike::Spike(sf::Vector2f pos, float radius)
 {
@@ -19,8 +19,12 @@ void Spike::Init()
 
 void Spike::Render()
 {
-    GetWindow().draw(sprite);
+    GetWindow()->draw(sprite);
 }
+
+#pragma endregion
+
+#pragma region SpriteProperties
 
 sf::FloatRect Spike::GetCollider() const
 {
@@ -31,4 +35,6 @@ sf::FloatRect Spike::GetCollider() const
     rect.top += rect.height/2.f;
     return rect;
 }
+
+#pragma endregion 
 

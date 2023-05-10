@@ -1,4 +1,7 @@
 ﻿#include "button.h"
+#include "../audio manager/audioManager.h"
+
+#pragma region Required
 
 Button::Button(sf::Vector2f pos, sf::Vector2f size, float thickness, sf::Texture* tex)
 {
@@ -25,7 +28,7 @@ void Button::Tick(float deltaTime)
     {
         bHeld = false;
     }
-    const auto mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(GetWindow()));
+    const auto mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*GetWindow()));
     if (sprite.getGlobalBounds().contains(mousePos))
     {
         sprite.setOutlineColor(sf::Color::White);
@@ -46,8 +49,12 @@ void Button::Tick(float deltaTime)
 
 void Button::Render()
 {
-    GetWindow().draw(sprite);
+    GetWindow()->draw(sprite);
 }
+
+#pragma endregion
+
+#pragma region ButtonProperties
 
 void Button::CreateButton()
 {
@@ -58,4 +65,6 @@ void Button::CreateButton()
     sprite.setOutlineThickness(5.f);
     sprite.setOutlineColor(sf::Color::Transparent);
 }
+
+#pragma endregion 
 

@@ -1,5 +1,7 @@
 ﻿#include "baseScene.h"
 
+#pragma region Required
+
 void BaseScene::Init()
 {
     CreateButtons();
@@ -7,6 +9,22 @@ void BaseScene::Init()
     CreateText();
     CreateSliders();
     BindSliders();
+    
+    for (auto &but : buttonList)
+    {
+        but.SetTarget(GetWindow(),GetGameView(),GetFixedView(),GetParallaxView());
+        but.Init();
+    }
+    for (auto &text : textList)
+    {
+        text.SetTarget(GetWindow(),GetGameView(),GetFixedView(),GetParallaxView());
+        text.Init();
+    }
+    for (auto &slider : sliderList)
+    {
+        slider.SetTarget(GetWindow(),GetGameView(),GetFixedView(),GetParallaxView());
+        slider.Init();
+    }
 }
 
 void BaseScene::Tick(float deltaTime)
@@ -43,6 +61,7 @@ void BaseScene::PhysicsTick(float fixedDeltaTime)
 
 void BaseScene::Render()
 {
+    GetWindow()->setView(*GetFixedView());
     for (auto &but : buttonList)
     {
         but.Render();
@@ -59,9 +78,10 @@ void BaseScene::Render()
         }
         else
         {
-            GetWindow().setView(GetGameView());
+            GetWindow()->setView(*GetGameView());
             text.Render();
         }
     }
 }
 
+#pragma endregion 

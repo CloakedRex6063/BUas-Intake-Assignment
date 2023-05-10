@@ -1,7 +1,8 @@
 ﻿#include "text.h"
-#include <iostream>
 
-Text::Text(const sf::Vector2f& pos, const sf::Font& font,unsigned size, const std::string& newText,const sf::Color& textColor)
+#pragma region Required
+
+Text::Text(const sf::Vector2f& pos, const sf::Font& font, int size, const std::string& newText,const sf::Color& textColor)
 {
     this->font = font;
     this->pos = pos;
@@ -23,10 +24,16 @@ void Text::Init()
 
 void Text::Render()
 {
-    GetWindow().draw(text);
+    GetWindow()->draw(text);
 }
+
+#pragma endregion 
+
+#pragma region TextProperties
 
 void Text::SetText(const std::string& newText)
 {
     text.setString(newText);
 }
+
+#pragma endregion 
