@@ -127,8 +127,12 @@ void ShopMenuScene::CreateText()
     const auto shopText = Text(shopPos,GetGame().GetFont(),50,"Shop");
     const auto coinPos = sf::Vector2f(static_cast<float>(windowSize.x) - 100.f,50.f);
     auto coinText = Text(coinPos,GetGame().GetFont(),50,"Coins:0");
+    const auto hintPos = sf::Vector2f(windowSize.x /2.f,windowSize.y - 100.f);
+    const auto hintText = Text(hintPos, GetGame().GetFont(), 50,
+                                   "Collect Coins in game to unlock these cool skins !");
     textList.emplace_back(shopText);
     textList.emplace_back(coinText);
+    textList.emplace_back(hintText);
 }
 
 #pragma endregion
