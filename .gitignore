@@ -29,6 +29,9 @@
 *.out
 *.app
 
+# Save
+*.txt
+
 # Folders
 .vs/
 .idea/

@@ -81,6 +81,16 @@ void Game::LoadButtonState() const
     shopMenu->GetButtonList()[4].bLocked = b3;
 }
 
+Game::~Game()
+{
+    delete mainMenu;
+    delete optionsMenu;
+    delete gameVictory;
+    delete pauseMenu;
+    delete shopMenu;
+    delete level;
+}
+
 #pragma endregion 
 
 void Game::Init()

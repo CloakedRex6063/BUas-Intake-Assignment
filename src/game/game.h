@@ -29,6 +29,7 @@ class Game final : public Object
 #pragma endregion 
     
 public:
+    ~Game();
     void Init() override;
     void Tick(float deltaTime) override;
     void PhysicsTick(float fixedDeltaTime) override;

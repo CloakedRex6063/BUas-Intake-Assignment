@@ -154,7 +154,6 @@ void BaseLevelScene::ShowProgress()
 void BaseLevelScene::Die()
 {
     AudioManager::PlaySound(DeathSound_Type);
-    coins = 0;
     bRestarted = true;
     GetGame().RestartGame();
 }
@@ -383,7 +382,7 @@ void BaseLevelScene::WinCheck() const
     {
         if (coins > Game::GetCoins())
         {
-            Game::SetCoins(coins);
+            Game::SetCoins(std::max(coins,3));
         }
         SaveFile::SaveData(Game::GetCoins(),Game::GetUsedCoins(),Player::GetTexIndex());
         GetGame().ChangeState(Victory_State);
